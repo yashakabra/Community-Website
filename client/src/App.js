@@ -1,7 +1,11 @@
+import React from "react";
+import SignUp from "../components/SIgnUp/SignUp";
+
+
 function App() {
   return (
     <div>
-      <h2>Let's get started!</h2>
+      <SignUp/>
     </div>
   );
 }

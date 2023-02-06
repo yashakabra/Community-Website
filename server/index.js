@@ -42,6 +42,10 @@ app.use('/temp', require('./app/routes/Temp'));
     
 // });
 
+app.get('/tempt', (req, res) => {
+    res.send("HELLO WORLD");
+})
+
 app.get('/temp', (req, res) => {
     console.log(req.body);
 })
