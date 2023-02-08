@@ -1,11 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const tempModel = require("./app/models/TempModel.js");
+// const {addUserDetails}=require('./app/controllers/user-controller.js')
+const cors=require('cors');
+
 const app = express();
 require("dotenv").config();
 
 const methodOverride = require('method-override');
+const { addUserDetails } = require('./app/controllers/user-controller.js');
 
+app.use(cors());
 app.use(methodOverride('_method'));
 app.use(express.urlencoded({extended:true}));
 
@@ -27,6 +32,7 @@ async function connect() {
 connect();
 
 app.use('/temp', require('./app/routes/Temp'));
+app.use("/", require('./app/routes/route'));
 // app.post('/temp', async (req, res) => {
 //     try{
 //         console.log(req.body);
