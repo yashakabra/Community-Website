@@ -35,7 +35,7 @@ app.use('/temp', require('./app/routes/Temp'));
 app.post("/login", async(req, res) => {
     console.log("INSIDE LOGIN SERVER SIDE");
     try{
-        console.log(req.body.email);
+        console.log(req.body.e);
         await RegisterUser.findOne({"email":req.body.e}, function(err, result){
             console.log("INSIDE REGISTER USER");
             console.log(err);
@@ -48,11 +48,11 @@ app.post("/login", async(req, res) => {
                 console.log("CREATE USER");
                 const user = RegisterUser.create({
                     flag: false,
-                    email: req.body.email, 
+                    email: req.body.e, 
                 }).then(()=>{
                     console.log("NOW SENDING BACK RESPONSE");
                     console.log(user.email)
-                    const user = {"email":result.email, "flag":result.flag};
+                    const user = {"email":req.body.e, "flag":false};
                     res.status(200).json(user);
                 }, (err)=>{
                     console.log(err);
@@ -68,18 +68,10 @@ app.put("/login", async(req, res) => {
     console.log("INSIDE LOGIN SERVER SIDE PUT");
     try{
         console.log(req.body.email);
-        await RegisterUser.findOne({"email":req.body.e}, function(err, result){
-            console.log("INSIDE REGISTER USER");
-            console.log(err);
-            console.log(result.email);
-            if(result){
-                const user = {"email":result.email, "flag":result.flag};
-                console.log(user);
-                res.status(200).json(user);
-            }else{
-                res.send(404);
-            }
-        } )
+        await RegisterUser.findOneAndUpdate({email:req.body.email}, {$set:{
+            flag:true,
+        }});
+        res.status(200).json({"email":req.body.email, "flag":true});
     }catch(err){
         console.log("IN SERVER POST ERROR SIDE");
     }

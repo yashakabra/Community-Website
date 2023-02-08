@@ -57,10 +57,14 @@ const Login = (props) => {
         }
     );
     const {email, flag} = await response.json();
+    console.log(flag);
     if(flag == false){
-
+        await updateFlag(emai);
+        console.log("FALSEEEEEEE");
+        navigate("/profile/firstuser");
     }else{
-
+      console.log("TRUEEEEEEEEEE");
+        navigate("/home");
     }
   }
 
@@ -75,6 +79,9 @@ const Login = (props) => {
         }),
         }
     ); 
+    console.log("IN UPDATE DATA");
+    const t = response.json();
+    console.log(t);
   }
 
   return (

@@ -22,6 +22,7 @@ function App() {
                 <Route path="/home" element={<ProtectedRoute val={1}/>}></Route>
                 <Route path="/login" element={<Login/>}></Route>
                 <Route path="/signup" element={<SignUp/>}></Route>
+                <Route path="/profile/firstuser" element={<Home/>}></Route>
               </Routes>
             </UserAuthContextProvider>
           </Col>
