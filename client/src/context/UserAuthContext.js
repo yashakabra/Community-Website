@@ -13,12 +13,15 @@ const userAuthContext = createContext();
 
 export function UserAuthContextProvider ({children}) {
     const [user, setUser] = useState("");
+    const [email, setEmail] = useState("");
     
     function signUp(email, password){
+        setEmail(email);
         return createUserWithEmailAndPassword(auth, email, password);
     }
 
     function logIn(email, password){
+        setEmail(email);
         return signInWithEmailAndPassword(auth, email, password);
     }
 
@@ -57,7 +60,7 @@ export function UserAuthContextProvider ({children}) {
     }
 
     return (
-        <userAuthContext.Provider value={{user, isSignedIn, signUp, logIn, logOut, googleSignIn}}>
+        <userAuthContext.Provider value={{user, email, isSignedIn, signUp, logIn, logOut, googleSignIn}}>
             {children}
         </userAuthContext.Provider>
     )

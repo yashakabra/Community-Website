@@ -46,7 +46,8 @@ const Login = (props) => {
     const e = emai;
     console.log("EMAIL IN LOGINUSER");
     console.log(e);
-    const response = await fetch(`http://localhost:${PORT}/login`, {
+    try{
+      const response = await fetch(`http://localhost:${PORT}/login`, {
         method:'POST',  
         headers: {
             'Content-type': 'application/json',
@@ -55,33 +56,17 @@ const Login = (props) => {
             e,
         }),
         }
-    );
-    const {email, flag} = await response.json();
-    console.log(flag);
-    if(flag == false){
-        await updateFlag(emai);
-        console.log("FALSEEEEEEE");
-        navigate("/profile/firstuser");
-    }else{
-      console.log("TRUEEEEEEEEEE");
-        navigate("/home");
+      );
+      const {email, flag} = await response.json();
+      console.log(flag);
+      if(flag == false){
+          navigate("/profile/create");
+      }else{
+          navigate("/home");
+      }
+    }catch(err){
+      console.log(err);
     }
-  }
-
-  async function updateFlag(emai){
-    const response = await fetch(`http://localhost:${PORT}/login`, {
-        method:'PUT',  
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            emai,
-        }),
-        }
-    ); 
-    console.log("IN UPDATE DATA");
-    const t = response.json();
-    console.log(t);
   }
 
   return (

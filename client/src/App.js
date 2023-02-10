@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AddUserDetailForm } from "./components/AddUserDetailForm";
 import { EditUserDetailForm } from "./components/EditUserDetailForm";
 import {Row, Col, Container} from "react-bootstrap";
-// import {Routes, Route, BrowserRouter} from "react-router-dom";
 import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
@@ -24,15 +23,11 @@ function App() {
           <Col>
             <UserAuthContextProvider>
               <Routes>
-                <Route
-                  path="/home"
-                  element={<ProtectedRoute val={1} />}
-                ></Route>
-                <Route path="/login" element={<Login />}></Route>
-                <Route path="/signup" element={<SignUp />}></Route>
-                <Route path="/profile/firstuser" element={<Home />}></Route>
-                <Route path="/profile/create" element={<AddUserDetailForm />} />
-                <Route path="/profile/edit" element={<EditUserDetailForm />} />
+                <Route path="/login" element={<Login />}/>
+                <Route path="/signup" element={<SignUp />}/>
+                <Route path="/home" element={<ProtectedRoute val={1}/>}></Route>
+                <Route path="/profile/create" element={<ProtectedRoute val={2}/>}/>
+                <Route path="/profile/edit" element={<ProtectedRoute val={3}/>} />
               </Routes>
             </UserAuthContextProvider>
           </Col>

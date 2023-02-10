@@ -34,9 +34,12 @@ const defaultValue = {
 };
 
 export const AddUserDetailForm = () => {
+
+  const PORT=8000;
+
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-  // const job_type=
+
   const onValueChange = (e) => {
     if(e.target.name=='Job_Type')
     {
@@ -49,8 +52,24 @@ export const AddUserDetailForm = () => {
 
   const handleSubmit =async ()=>{
     await addUserDetails(user);
-
+    await updateFlag()
   };
+
+  async function updateFlag(emai){
+    const response = await fetch(`http://localhost:${PORT}/login`, {
+        method:'PUT',  
+        headers: {
+            'Content-type': 'application/json',
+        },
+        body: JSON.stringify({
+            emai,
+        }),
+        }
+    ); 
+    console.log("IN UPDATE DATA");
+    const t = response.json();
+    console.log(t);
+  }
   
   return (
     <>
