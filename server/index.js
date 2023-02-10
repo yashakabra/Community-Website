@@ -68,11 +68,12 @@ app.post("/login", async(req, res) => {
 app.put("/login", async(req, res) => {
     console.log("INSIDE LOGIN SERVER SIDE PUT");
     try{
-        console.log(req.body.email);
-        await RegisterUser.findOneAndUpdate({email:req.body.email}, {$set:{
-            flag:true,
-        }});
-        res.status(200).json({"email":req.body.email, "flag":true});
+        console.log("IN PUT REQUEST LOGIN");
+        console.log(req.body.emai);
+        const filter = {'email':req.body.emai};
+        const update = {'flag':'true'};
+        await RegisterUser.findOneAndUpdate(filter, update);
+        res.status(200).json({"email":req.body.emai, "flag":true});
     }catch(err){
         console.log("IN SERVER POST ERROR SIDE");
     }

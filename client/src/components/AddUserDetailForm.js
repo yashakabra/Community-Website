@@ -13,6 +13,8 @@ import {
   RadioGroup,
   FormLabel,
 } from "@mui/material";
+import { Link, useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Container = styled(FormGroup)`
   width: 50%;
@@ -23,6 +25,7 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
+  _id:"",
   Name: "",
   Age: "",
   UserName: "",
@@ -37,8 +40,15 @@ export const AddUserDetailForm = () => {
 
   const PORT=8000;
 
+  const {email} = useUserAuth();
+  console.log("INSIDE ADD USER DETAIL");
+  console.log(email);
+
+
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
+
+  const navigate = useNavigate();
 
   const onValueChange = (e) => {
     if(e.target.name=='Job_Type')
@@ -46,13 +56,15 @@ export const AddUserDetailForm = () => {
     setValue(e.target.value);
     console.log(e.target.value);
     }
-    console.log(user);
+    // console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value});
   };
 
   const handleSubmit =async ()=>{
+    user._id = email;
     await addUserDetails(user);
-    await updateFlag()
+    await updateFlag(email);
+    navigate("/home");
   };
 
   async function updateFlag(emai){

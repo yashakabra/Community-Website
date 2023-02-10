@@ -19,7 +19,7 @@ const getUserDetails = async (request, response) => {
         // console.log("id",request.body.val);
         const val = request.body.val;
   try {
-     const userDetails=await UserDetails.find({UserName:val});
+     const userDetails=await UserDetails.find({_id:val});
      console.log(userDetails);
      return response.status(200).json(userDetails);
   } catch (error) {
@@ -34,7 +34,7 @@ const editUserDetails = async (request, response) => {
 
   const editUser=new UserDetails(user);
   try {
-    await UserDetails.updateMany({ UserName:val }, editUser);
+    await UserDetails.updateOne({ _id:val }, editUser);
     response.status(200).json(editUser);
   } catch (error) {
     response.status(401).json({ message: error.message });

@@ -13,6 +13,7 @@ import {
   RadioGroup,
   FormLabel,
 } from "@mui/material";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Container = styled(FormGroup)`
   width: 50%;
@@ -23,6 +24,7 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
+  _id:"",
   Name: "",
   Age: "",
   UserName: "",
@@ -36,9 +38,14 @@ const defaultValue = {
 export const EditUserDetailForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
+  const {email} = useUserAuth();
 
+
+  console.log("WRTYUI");
+  console.log(email);
   const id={
-    val:"yuio",
+    val:"yash1234@gmail.com"
+    ,
   }
   const onValueChange = (e) => {
     if (e.target.name == "Job_Type") {
@@ -55,9 +62,12 @@ export const EditUserDetailForm = () => {
   
   const loadUserDetails=async ()=>{
     const response=await getUserDetails(id);
+    
     setUser(response.data[0]);
   }
   const handleSubmit = async () => {
+    user._id = email;
+    console.log(user);
     await editUserDetails(user,id);
   };
 
