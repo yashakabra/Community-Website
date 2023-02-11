@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addUserDetails } from "../service/api";
+import { addUserDetails } from "../service/userDetailsAPI";
 import {
   FormGroup,
   FormControl,
@@ -25,22 +25,22 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
-  _id:"",
+  _id: "",
   Name: "",
   Age: "",
   UserName: "",
   Job_Type: 0,
-  City:"",
-  State:"",
-  Pincode:"",
-  Introduction:"",
+  City: "",
+  State: "",
+  Pincode: "",
+  Introduction: "",
 };
 
 export const AddUserDetailForm = () => {
 
-  const PORT=8000;
+  const PORT = 8000;
 
-  const {email} = useUserAuth();
+  const { email } = useUserAuth();
   console.log("INSIDE ADD USER DETAIL");
   console.log(email);
 
@@ -51,38 +51,36 @@ export const AddUserDetailForm = () => {
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if(e.target.name=='Job_Type')
-    {
-    setValue(e.target.value);
-    console.log(e.target.value);
+    if (e.target.name == 'Job_Type') {
+      setValue(e.target.value);
+      console.log(e.target.value);
     }
-    // console.log(user);
-    setUser({ ...user, [e.target.name]: e.target.value});
+    setUser({ ...user, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit =async ()=>{
+  const handleSubmit = async () => {
     user._id = email;
     await addUserDetails(user);
     await updateFlag(email);
     navigate("/home");
   };
 
-  async function updateFlag(emai){
+  async function updateFlag(emai) {
     const response = await fetch(`http://localhost:${PORT}/login`, {
-        method:'PUT',  
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            emai,
-        }),
-        }
-    ); 
+      method: 'PUT',
+      headers: {
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({
+        emai,
+      }),
+    }
+    );
     console.log("IN UPDATE DATA");
     const t = response.json();
     console.log(t);
   }
-  
+
   return (
     <>
       <Container>
@@ -135,7 +133,7 @@ export const AddUserDetailForm = () => {
           <Input onChange={(e) => onValueChange(e)} name="Introduction" />
         </FormControl>
         <FormControl>
-          <Button variant="contained" onClick={()=>handleSubmit()}>Submit</Button>
+          <Button variant="contained" onClick={() => handleSubmit()}>Submit</Button>
         </FormControl>
       </Container>
     </>

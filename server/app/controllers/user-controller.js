@@ -1,10 +1,9 @@
-const UserDetails =require('../models/user-details-schema.js');
+const UserDetails =require('../models/userDetailsModel.js');
 
 const addUserDetails=async (request,response)=>{
     const userDetails=request.body;
     //  console.log("id", request.body);
     const newUserDetails=new UserDetails(userDetails);
-    console.log('po');
     try{
         await newUserDetails.save();
         response.status(200).json(newUserDetails);
@@ -16,7 +15,6 @@ const addUserDetails=async (request,response)=>{
 }
 
 const getUserDetails = async (request, response) => {
-        // console.log("id",request.body.val);
         const val = request.body.val;
   try {
      const userDetails=await UserDetails.find({_id:val});

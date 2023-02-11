@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
+import { createUser } from "../service/loginUserAPI";
 
 const SignUp = (props) => {
 
@@ -19,6 +20,13 @@ const SignUp = (props) => {
     try{
       setError("");
       await signUp(email, password);
+      const tempUser = {
+        email: email,
+        flag: false,
+      }
+      const user = await createUser(tempUser);
+      console.log("INSIDE SIGNUP");
+      console.log(user.data);
       navigate("/login");
     }catch (err){
       setError(err.message);

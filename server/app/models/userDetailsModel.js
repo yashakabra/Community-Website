@@ -1,17 +1,5 @@
 const mongoose = require("mongoose");
 
-const defaultValue = {
-
-  Name: "",
-  Age: "",
-  UserName: "",
-  Job_Type: 0,
-  City: "",
-  State: "",
-  Pincode: "",
-  Introduction: "",
-};
-
 const TempModel = new mongoose.Schema({
   _id: {
     type: String,

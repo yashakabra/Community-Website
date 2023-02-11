@@ -4,6 +4,7 @@ import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
+import { getFlag } from "../service/loginUserAPI";
 
 const Login = (props) => {
 
@@ -13,18 +14,28 @@ const Login = (props) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
+  const currentUser = {
+    email: email,
+    flag: true,
+  };
+
   const PORT = 8000;
 
   const handleSubmit = async(event) => {
     event.preventDefault();
     try{
+      
       setError("");
-      console.log("JUST PRESS SUBMIT");
-      console.log(event);
       await logIn(email, password);
-      console.log("BEFORE LOGIN USER");
-      console.log(email);
-      await loginUser(email);
+      
+      const obj = await getFlag(currentUser);
+      const flag = obj.data[0].flag;
+      if(flag == false){
+          navigate("/profile/create");
+      }else{
+          navigate("/home");
+      }
+      
     }catch (err){
       setError(err.message);
       console.log(err);
@@ -35,30 +46,8 @@ const Login = (props) => {
     e.preventDefault();
     try{
       await googleSignIn();
-      await loginUser(email);
-    }catch(err){
-      console.log(err);
-      setError(err.message);
-    }
-  }
-  
-  async function loginUser(emai){
-    const e = emai;
-    console.log("EMAIL IN LOGINUSER");
-    console.log(e);
-    try{
-      const response = await fetch(`http://localhost:${PORT}/login`, {
-        method:'POST',  
-        headers: {
-            'Content-type': 'application/json',
-        },
-        body: JSON.stringify({
-            e,
-        }),
-        }
-      );
-      const {email, flag} = await response.json();
-      console.log(flag);
+      const obj = await getFlag(currentUser);
+      const flag = obj.data[0].flag;
       if(flag == false){
           navigate("/profile/create");
       }else{
@@ -66,8 +55,36 @@ const Login = (props) => {
       }
     }catch(err){
       console.log(err);
+      setError(err.message);
     }
   }
+  
+  // async function loginUser(emai){
+  //   const e = emai;
+  //   console.log("EMAIL IN LOGINUSER");
+  //   console.log(e);
+  //   try{
+  //     const response = await fetch(`http://localhost:${PORT}/login`, {
+  //       method:'POST',  
+  //       headers: {
+  //           'Content-type': 'application/json',
+  //       },
+  //       body: JSON.stringify({
+  //           e,
+  //       }),
+  //       }
+  //     );
+  //     const {email, flag} = await response.json();
+  //     console.log(flag);
+  //     if(flag == false){
+  //         navigate("/profile/create");
+  //     }else{
+  //         navigate("/home");
+  //     }
+  //   }catch(err){
+  //     console.log(err);
+  //   }
+  // }
 
   return (
     <>

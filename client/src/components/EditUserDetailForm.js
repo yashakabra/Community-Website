@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { addUserDetails,getUserDetails,editUserDetails } from "../service/api";
+import { addUserDetails,getUserDetails,editUserDetails } from "../service/userDetailsAPI";
 import {
   FormGroup,
   FormControl,
