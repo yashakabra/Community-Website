@@ -25,32 +25,12 @@ const SignUp = (props) => {
         flag: false,
       }
       const user = await createUser(tempUser);
-      console.log("INSIDE SIGNUP");
-      console.log(user.data);
       navigate("/login");
     }catch (err){
       setError(err.message);
       console.log(err);
     }
   }
-
-  // async function registerUser(event){
-  //   event.preventDefault();
-  //   console.log("STARTED");
-  //   const response = await fetch(`http://localhost:${PORT}/signup`, {
-  //       method:'POST',  
-  //       headers: {
-  //         'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         email, 
-  //       }),
-  //     }
-  //   );
-  //   const data = await response.json();
-  //   console.log("HELOOOOOOOOOOOO");
-  //   console.log(data);
-  // }
 
   return (
     <div>

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addUserDetails } from "../service/userDetailsAPI";
 import {
   FormGroup,
@@ -15,6 +15,7 @@ import {
 } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import { updateFlag } from "../service/loginUserAPI";
 
 const Container = styled(FormGroup)`
   width: 50%;
@@ -40,10 +41,7 @@ export const AddUserDetailForm = () => {
 
   const PORT = 8000;
 
-  const { email } = useUserAuth();
-  console.log("INSIDE ADD USER DETAIL");
-  console.log(email);
-
+  const { user:userCurr } = useUserAuth();
 
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
@@ -53,33 +51,20 @@ export const AddUserDetailForm = () => {
   const onValueChange = (e) => {
     if (e.target.name == 'Job_Type') {
       setValue(e.target.value);
-      console.log(e.target.value);
     }
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async () => {
-    user._id = email;
+    user._id = userCurr.email;
     await addUserDetails(user);
-    await updateFlag(email);
+    const data = {
+      email:userCurr.email,
+      flag:true,
+    }
+    await updateFlag(data);
     navigate("/home");
   };
-
-  async function updateFlag(emai) {
-    const response = await fetch(`http://localhost:${PORT}/login`, {
-      method: 'PUT',
-      headers: {
-        'Content-type': 'application/json',
-      },
-      body: JSON.stringify({
-        emai,
-      }),
-    }
-    );
-    console.log("IN UPDATE DATA");
-    const t = response.json();
-    console.log(t);
-  }
 
   return (
     <>

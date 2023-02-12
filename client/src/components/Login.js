@@ -27,10 +27,8 @@ const Login = (props) => {
       
       setError("");
       await logIn(email, password);
-      
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
-      console.log("IN HANDLE SUBMIT   ", flag);
       if(flag == false){
           navigate("/profile/create");
       }else{
@@ -59,33 +57,6 @@ const Login = (props) => {
       setError(err.message);
     }
   }
-  
-  // async function loginUser(emai){
-  //   const e = emai;
-  //   console.log("EMAIL IN LOGINUSER");
-  //   console.log(e);
-  //   try{
-  //     const response = await fetch(`http://localhost:${PORT}/login`, {
-  //       method:'POST',  
-  //       headers: {
-  //           'Content-type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //           e,
-  //       }),
-  //       }
-  //     );
-  //     const {email, flag} = await response.json();
-  //     console.log(flag);
-  //     if(flag == false){
-  //         navigate("/profile/create");
-  //     }else{
-  //         navigate("/home");
-  //     }
-  //   }catch(err){
-  //     console.log(err);
-  //   }
-  // }
 
   return (
     <>
