@@ -2,10 +2,11 @@ const loginDetails = require('../models/loginUserModel');
 
 const createUser = async (req, res) => {
     const loginUser = req.body;
-    console.log("INSIDE LOGIN CONTROLLER");
+    console.log("INSIDE SIGNUP CONTROLLER");
     console.log(loginUser);
     const newLoginUser = new loginDetails(loginUser);
     try{
+        console.log("INSIDE CONT  ", newLoginUser);
         await newLoginUser.save();
         res.status(200).json(newLoginUser);
     }catch(error){

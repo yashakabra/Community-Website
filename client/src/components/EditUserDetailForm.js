@@ -1,5 +1,5 @@
-import { useState,useEffect } from "react";
-import { addUserDetails,getUserDetails,editUserDetails } from "../service/userDetailsAPI";
+import { useState, useEffect } from "react";
+import { addUserDetails, getUserDetails, editUserDetails } from "../service/userDetailsAPI";
 import {
   FormGroup,
   FormControl,
@@ -14,6 +14,7 @@ import {
   FormLabel,
 } from "@mui/material";
 import { useUserAuth } from "../context/UserAuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Container = styled(FormGroup)`
   width: 50%;
@@ -24,7 +25,7 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
-  _id:"",
+  _id: "",
   Name: "",
   Age: "",
   UserName: "",
@@ -38,15 +39,11 @@ const defaultValue = {
 export const EditUserDetailForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-  const {email} = useUserAuth();
+  const { user: userCurr } = useUserAuth();
+  const [id, setId] = useState("yac984@gmail.byn");
+  const navigate = useNavigate();
 
 
-  console.log("WRTYUI");
-  console.log(email);
-  const id={
-    val:"yash1234@gmail.com"
-    ,
-  }
   const onValueChange = (e) => {
     if (e.target.name == "Job_Type") {
       setValue(e.target.value);
@@ -55,25 +52,43 @@ export const EditUserDetailForm = () => {
     console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-  
-  useEffect(()=>{
-    loadUserDetails();
-   },[])
-  
-  const loadUserDetails=async ()=>{
-    const response=await getUserDetails(id);
-    
+
+  useEffect(() => {
+    if (!userCurr) {
+      console.log("RETURN USER");
+      return ;
+    }
+    if(userCurr.email == id){
+      loadUserDetails();
+      return ;
+    }
+    if (userCurr) {
+      setId(userCurr.email);
+    }
+  }, [userCurr, id]);
+
+  const loadUserDetails = async () => {
+    console.log("INSIDE LOAD   ", id);
+    const data={
+      id : id,
+    }
+    const response = await getUserDetails(data);
     setUser(response.data[0]);
   }
   const handleSubmit = async () => {
-    user._id = email;
-    console.log(user);
-    await editUserDetails(user,id);
+    user._id = id;
+    console.log("INSIDE HANDLE SUBMIT", user);
+    const data = {
+      id: id,
+    }
+    await editUserDetails(user, data);
+    navigate('/home');
   };
 
   return (
     <>
       <Container>
+        <div>{userCurr&& userCurr.email}</div>
         <Typography variant="h2">Edit Your Details</Typography>
         <FormControl>
           <InputLabel>Name</InputLabel>

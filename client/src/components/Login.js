@@ -30,6 +30,7 @@ const Login = (props) => {
       
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
+      console.log("IN HANDLE SUBMIT   ", flag);
       if(flag == false){
           navigate("/profile/create");
       }else{

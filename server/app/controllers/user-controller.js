@@ -15,7 +15,8 @@ const addUserDetails=async (request,response)=>{
 }
 
 const getUserDetails = async (request, response) => {
-        const val = request.body.val;
+        const val = request.body.id;
+        console.log(val);
   try {
      const userDetails=await UserDetails.find({_id:val});
      console.log(userDetails);
@@ -26,12 +27,12 @@ const getUserDetails = async (request, response) => {
 };
 
 const editUserDetails = async (request, response) => {
-  console.log(request.body);
-  const val=request.body.id.val;
+  const val=request.body.id.id;
   const user=request.body.data;
 
   const editUser=new UserDetails(user);
   try {
+    console.log("INSIDE EDIT", editUser, val);
     await UserDetails.updateOne({ _id:val }, editUser);
     response.status(200).json(editUser);
   } catch (error) {
