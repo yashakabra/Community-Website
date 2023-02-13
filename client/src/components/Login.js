@@ -7,10 +7,9 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { getFlag } from "../service/loginUserAPI";
 
 const Login = (props) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {logIn, googleSignIn} = useUserAuth();
+  const { logIn, googleSignIn } = useUserAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -21,42 +20,40 @@ const Login = (props) => {
 
   const PORT = 8000;
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
-      
+    try {
       setError("");
       await logIn(email, password);
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
-      if(flag == false){
-          navigate("/profile/create");
-      }else{
-          navigate("/home");
+      if (flag == false) {
+        navigate("/profile/create");
+      } else {
+        navigate("/home");
       }
-      
-    }catch (err){
+    } catch (err) {
       setError(err.message);
       console.log(err);
     }
-  }
+  };
 
-  const handleGoogleSignIn = async(e) =>{
+  const handleGoogleSignIn = async (e) => {
     e.preventDefault();
-    try{
+    try {
       await googleSignIn();
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
-      if(flag == false){
-          navigate("/profile/create");
-      }else{
-          navigate("/home");
+      if (flag == false) {
+        navigate("/profile/create");
+      } else {
+        navigate("/home");
       }
-    }catch(err){
+    } catch (err) {
       console.log(err);
       setError(err.message);
     }
-  }
+  };
 
   return (
     <>
@@ -68,7 +65,9 @@ const Login = (props) => {
             <Form.Control
               type="email"
               placeholder="Email address"
-              onChange={(e) => {setEmail(e.target.value)}}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </Form.Group>
 
@@ -76,7 +75,9 @@ const Login = (props) => {
             <Form.Control
               type="password"
               placeholder="Password"
-              onChange={(e) => {setPassword(e.target.value)}}
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
             />
           </Form.Group>
 
@@ -100,5 +101,5 @@ const Login = (props) => {
       </div>
     </>
   );
-}
+};
 export default Login;

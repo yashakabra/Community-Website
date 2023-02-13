@@ -6,31 +6,30 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { createUser } from "../service/loginUserAPI";
 
 const SignUp = (props) => {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const {signUp} = useUserAuth();
+  const { signUp } = useUserAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const PORT = 8000;
 
-  const handleSubmit = async(event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    try{
+    try {
       setError("");
       await signUp(email, password);
       const tempUser = {
         email: email,
         flag: false,
-      }
+      };
       const user = await createUser(tempUser);
       navigate("/login");
-    }catch (err){
+    } catch (err) {
       setError(err.message);
       console.log(err);
     }
-  }
+  };
 
   return (
     <div>
@@ -42,7 +41,9 @@ const SignUp = (props) => {
             <Form.Control
               type="email"
               placeholder="Email address"
-              onChange={(e) => { setEmail(e.target.value) }}
+              onChange={(e) => {
+                setEmail(e.target.value);
+              }}
             />
           </Form.Group>
 
@@ -66,6 +67,6 @@ const SignUp = (props) => {
       </div>
     </div>
   );
-}
+};
 
 export default SignUp;
