@@ -1,18 +1,15 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const tempModel = require("./app/models/TempModel.js");
-const app = express();
+const cors=require('cors');
+const morgan = require('morgan');
+const methodOverride = require('method-override');
+const RegisterUser = require('./app/models/loginUserModel.js');
+const loginRoutes = require('./app/routes/loginRoute');
+const profileRoute = require('./app/routes/userRoute');
 require("dotenv").config();
 
-const methodOverride = require('method-override');
-
-app.use(methodOverride('_method'));
-app.use(express.urlencoded({extended:true}));
-
-app.use(express.json());
-
-const PORT = process.env.PORT;
-const URL = process.env.URL;
+const app = express();
 
 async function connect() {
     try{
@@ -26,29 +23,67 @@ async function connect() {
 
 connect();
 
+app.use(cors());
+app.use(methodOverride('_method'));
+app.use(express.urlencoded({extended:true}));
+app.use(express.json());
+app.use(morgan('dev'));
+
+const PORT = process.env.PORT;
+const URL = process.env.URL;
+
 app.use('/temp', require('./app/routes/Temp'));
-// app.post('/temp', async (req, res) => {
+app.use("/profile", profileRoute);
+console.log("IN INDEX JS");
+app.use('/login', loginRoutes);
+
+
+// app.post("/login", async(req, res) => {
+//     console.log("INSIDE LOGIN SERVER SIDE");
 //     try{
-//         console.log(req.body);
-//         const temp = new tempModel({
-//             name : req.body.name,
-//         });
-//         await temp.save();
-//         res.status(200).json(temp);
+//         console.log(req.body.e);
+//         await RegisterUser.findOne({"email":req.body.e}, function(err, result){
+//             console.log("INSIDE REGISTER USER");
+//             // console.log(err);
+//             // console.log(result.email);
+//             if(result){
+//                 const user = {"email":result.email, "flag":result.flag};
+//                 console.log(user);
+//                 res.status(200).json(user);
+//             }else{
+//                 console.log("CREATE USER");
+//                 const user = RegisterUser.create({
+//                     flag: false,
+//                     email: req.body.e, 
+//                 }).then(()=>{
+//                     console.log("NOW SENDING BACK RESPONSE");
+//                     // console.log(user.email)
+//                     const user = {"email":req.body.e, "flag":false};
+//                     res.status(200).json(user);
+//                 }, (err)=>{
+//                     console.log(err);
+//                 });
+//             }
+//         } )
 //     }catch(err){
-//         console.log(err);
-//         res.status(404).json(err.message);
+//         console.log("IN SERVER POST ERROR SIDE");
 //     }
-    
 // });
 
-app.get('/tempt', (req, res) => {
-    res.send("HELLO WORLD");
-})
+// app.put("/login", async(req, res) => {
+//     console.log("INSIDE LOGIN SERVER SIDE PUT");
+//     try{
+//         console.log("IN PUT REQUEST LOGIN");
+//         console.log(req.body.emai);
+//         const filter = {'email':req.body.emai};
+//         const update = {'flag':'true'};
+//         await RegisterUser.findOneAndUpdate(filter, update);
+//         res.status(200).json({"email":req.body.emai, "flag":true});
+//     }catch(err){
+//         console.log("IN SERVER POST ERROR SIDE");
+//     }
+// });
 
-app.get('/temp', (req, res) => {
-    console.log(req.body);
-})
 
 app.listen(PORT, ()=>{
     console.log("Server started!!");
