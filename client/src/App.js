@@ -7,16 +7,17 @@ import SignUp from "./components/SignUp";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import NavBar from "./components/NavBar";
+import Home from "./components/Home";
 
 function App() {
 
   return (
     <div >
       <NavBar/>
-      <BrowserRouter >
-        <Container >
-          <Row  >
-            <Col >
+      <BrowserRouter>
+        <Container className="d-flex border p-0">
+          <Row  className="flex-fill border p-0">
+            <Col className="w-100 border p-0">
               <UserAuthContextProvider>
                 <Routes>
                   <Route path="/login" element={<Login />} />
@@ -30,7 +31,6 @@ function App() {
           </Row>
         </Container>
       </BrowserRouter>
-      
     </div>
 
   );
