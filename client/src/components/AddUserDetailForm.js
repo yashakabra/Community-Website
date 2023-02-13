@@ -13,7 +13,7 @@ import {
   RadioGroup,
   FormLabel,
 } from "@mui/material";
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { updateFlag } from "../service/loginUserAPI";
 
@@ -38,10 +38,9 @@ const defaultValue = {
 };
 
 export const AddUserDetailForm = () => {
-
   const PORT = 8000;
 
-  const { user:userCurr } = useUserAuth();
+  const { user: userCurr } = useUserAuth();
 
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
@@ -49,7 +48,7 @@ export const AddUserDetailForm = () => {
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if (e.target.name == 'Job_Type') {
+    if (e.target.name == "Job_Type") {
       setValue(e.target.value);
     }
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -59,9 +58,9 @@ export const AddUserDetailForm = () => {
     user._id = userCurr.email;
     await addUserDetails(user);
     const data = {
-      email:userCurr.email,
-      flag:true,
-    }
+      email: userCurr.email,
+      flag: true,
+    };
     await updateFlag(data);
     navigate("/home");
   };
@@ -118,7 +117,9 @@ export const AddUserDetailForm = () => {
           <Input onChange={(e) => onValueChange(e)} name="Introduction" />
         </FormControl>
         <FormControl>
-          <Button variant="contained" onClick={() => handleSubmit()}>Submit</Button>
+          <Button variant="contained" onClick={() => handleSubmit()}>
+            Submit
+          </Button>
         </FormControl>
       </Container>
     </>

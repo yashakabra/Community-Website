@@ -1,42 +1,46 @@
-const express = require('express');
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 const tempModel = require("./app/models/TempModel.js");
-const cors=require('cors');
-const morgan = require('morgan');
-const methodOverride = require('method-override');
-const RegisterUser = require('./app/models/loginUserModel.js');
-const loginRoutes = require('./app/routes/loginRoute');
-const profileRoute = require('./app/routes/userRoute');
+const cors = require("cors");
+const morgan = require("morgan");
+const methodOverride = require("method-override");
+const RegisterUser = require("./app/models/loginUserModel.js");
+const loginRoutes = require("./app/routes/loginRoute");
+const profileRoute = require("./app/routes/userRoute");
+const postRoute = require("./app/routes/postRoute");
+
 require("dotenv").config();
 
 const app = express();
 
 async function connect() {
-    try{
-        await mongoose.set("strictQuery", false);
-        await mongoose.connect(URL, {useUnifiedTopology: true});
-        console.log("Connected to mongoDB");
-    }catch(error){
-        console.log(error.message);
-    }
+  try {
+    await mongoose.set("strictQuery", false);
+    await mongoose.connect(URL, { useUnifiedTopology: true });
+    console.log("Connected to mongoDB");
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
 connect();
 
 app.use(cors());
-app.use(methodOverride('_method'));
-app.use(express.urlencoded({extended:true}));
+app.use(methodOverride("_method"));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(morgan('dev'));
+app.use(morgan("dev"));
 
 const PORT = process.env.PORT;
 const URL = process.env.URL;
 
-app.use('/temp', require('./app/routes/Temp'));
+app.use("/temp", require("./app/routes/Temp"));
 app.use("/profile", profileRoute);
 console.log("IN INDEX JS");
-app.use('/login', loginRoutes);
+app.use("/login", loginRoutes);
 
+app.use("/post", postRoute);
+app.use("/uploads", express.static("uploads"));
 
 // app.post("/login", async(req, res) => {
 //     console.log("INSIDE LOGIN SERVER SIDE");
@@ -54,7 +58,7 @@ app.use('/login', loginRoutes);
 //                 console.log("CREATE USER");
 //                 const user = RegisterUser.create({
 //                     flag: false,
-//                     email: req.body.e, 
+//                     email: req.body.e,
 //                 }).then(()=>{
 //                     console.log("NOW SENDING BACK RESPONSE");
 //                     // console.log(user.email)
@@ -84,7 +88,6 @@ app.use('/login', loginRoutes);
 //     }
 // });
 
-
-app.listen(PORT, ()=>{
-    console.log("Server started!!");
-})
+app.listen(PORT, () => {
+  console.log("Server started!!");
+});

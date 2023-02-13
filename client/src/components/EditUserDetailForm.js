@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { addUserDetails, getUserDetails, editUserDetails } from "../service/userDetailsAPI";
+import {
+  addUserDetails,
+  getUserDetails,
+  editUserDetails,
+} from "../service/userDetailsAPI";
 import {
   FormGroup,
   FormControl,
@@ -43,7 +47,6 @@ export const EditUserDetailForm = () => {
   const [id, setId] = useState("yac984@gmail.byn");
   const navigate = useNavigate();
 
-
   const onValueChange = (e) => {
     if (e.target.name == "Job_Type") {
       setValue(e.target.value);
@@ -56,11 +59,11 @@ export const EditUserDetailForm = () => {
   useEffect(() => {
     if (!userCurr) {
       console.log("RETURN USER");
-      return ;
+      return;
     }
-    if(userCurr.email == id){
+    if (userCurr.email == id) {
       loadUserDetails();
-      return ;
+      return;
     }
     if (userCurr) {
       setId(userCurr.email);
@@ -69,26 +72,26 @@ export const EditUserDetailForm = () => {
 
   const loadUserDetails = async () => {
     console.log("INSIDE LOAD   ", id);
-    const data={
-      id : id,
-    }
+    const data = {
+      id: id,
+    };
     const response = await getUserDetails(data);
     setUser(response.data[0]);
-  }
+  };
   const handleSubmit = async () => {
     user._id = id;
     console.log("INSIDE HANDLE SUBMIT", user);
     const data = {
       id: id,
-    }
+    };
     await editUserDetails(user, data);
-    navigate('/home');
+    navigate("/home");
   };
 
   return (
     <>
       <Container>
-        <div>{userCurr&& userCurr.email}</div>
+        <div>{userCurr && userCurr.email}</div>
         <Typography variant="h2">Edit Your Details</Typography>
         <FormControl>
           <InputLabel>Name</InputLabel>
