@@ -1,11 +1,7 @@
 import React from "react";
-// import SignUp from "../components/SIgnUp/SignUp";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { AddUserDetailForm } from "./components/AddUserDetailForm";
-import { EditUserDetailForm } from "./components/EditUserDetailForm";
 import { CreatePostForm } from "./components/CreatePostForm";
 import { Row, Col, Container } from "react-bootstrap";
-import Home from "./components/Home";
 import Login from "./components/Login";
 import SignUp from "./components/SignUp";
 import { UserAuthContextProvider } from "./context/UserAuthContext";

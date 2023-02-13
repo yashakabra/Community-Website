@@ -26,7 +26,7 @@ const Home = (props) => {
                     Log out
                 </Button>
             </div>
-            <Container fluid>
+            {/* <Container fluid>
                 <Row noGutters>
                     <Col xs={3}  style={{padding:0}}>
                         <LeftComponent/>
@@ -38,7 +38,7 @@ const Home = (props) => {
                         <RightComponent/>
                     </Col>
                 </Row>
-            </Container>
+            </Container> */}
         </div>
     );
 }
