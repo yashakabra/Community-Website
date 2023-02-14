@@ -3,9 +3,12 @@ import React from "react";
 import { Button } from "react-bootstrap";
 
 const RightComponent = (props) => {
-    
-    return (<div style={{backgroundColor: 'lightblue', height: '100vh'}}>
-    </div>);
+    const {Component} = props;
+    return (
+    <div style={{backgroundColor: 'lightblue', height: '100vh'}}>
+        <Component/>
+    </div>
+    );
 }
 
 export default RightComponent;

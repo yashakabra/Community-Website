@@ -5,39 +5,36 @@ import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./AddUserDetailForm";
 import { EditUserDetailForm } from "./EditUserDetailForm";
-import Home from "./Home";
+import Home from "./Home/Home";
+import OpenedPost from "./Home/OpenedPost";
 
 const ProtectedRoute = (props) => {
-    const { user } = useUserAuth();
     const auth = useUserAuth;
+    const { user } = useUserAuth();
+    const { val } = props;
 
-    if (!auth) {
+    if (!auth && !user) {
         return <Navigate to="/login" />
     }
-    if (props.val == 1)
-        return (
-            <Container className="w-100 p-0">
-                <Row className="w-100 p-0">
-                    <Home className="w-100 p-0" />
-                </Row>
-            </Container>
-        );
-    if (props.val == 2)
-        return (
-            <Container className="w-100">
-                <Row className="w-100">
-                    <AddUserDetailForm  className="w-100"/>
-                </Row>
-            </Container>
-        );
-    if (props.val == 3)
-        return (
-            <Container className="w-100">
-                <Row className="w-100">
-                    <EditUserDetailForm  className="w-100"/>
-                </Row>
-            </Container>
-        );
+    
+    let Component;
+    if (val === 1) {
+        Component = (props) => <Home index={0}/>;
+    } else if (val === 2) {
+        Component = AddUserDetailForm;
+    } else if (val === 3) {
+        Component = EditUserDetailForm;
+    } else if (val === 4) {
+        Component = <Home index={1}/>;
+    }
+    
+    return (
+        <Container fluid style={{padding:0}}>
+            <Row className="w-100" style={{padding:0}}>
+                <Component className="w-100" />
+            </Row>
+        </Container>
+    );
 }
 
 export default ProtectedRoute;
