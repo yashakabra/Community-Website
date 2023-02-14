@@ -1,10 +1,12 @@
 import React from "react";
 
 const LeftComponent = (props) => {
-    
-    return (<div style={{backgroundColor: 'orange', height: '100vh'}}>
-
-    </div>);
+    const {Component} = props;
+    return (
+        <div style={{backgroundColor: 'orange', height: '100vh'}}>
+            <Component/>
+        </div>
+    );
 }
 
 export default LeftComponent;
