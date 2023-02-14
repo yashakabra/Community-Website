@@ -156,6 +156,9 @@ export default function NavBar() {
 //       </MenuItem>
 //     </Menu>
 //   );
+// const handleProfileDetails=()=>{
+    
+// }
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -220,6 +223,7 @@ export default function NavBar() {
               aria-label="my-account"
               color="inherit"
               title="My Account"
+              onClick={handleProfileDetails}
             >
               <Badge color="error">
                 <AccountBoxIcon />
