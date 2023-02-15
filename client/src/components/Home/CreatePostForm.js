@@ -17,8 +17,8 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Cancel, Tag } from "@mui/icons-material";
-import { addPostDetails } from "../service/postDetailsAPI";
-import { useUserAuth } from "../context/UserAuthContext";
+import { addPostDetails } from "../../service/postDetailsAPI";
+import { useUserAuth } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 const Container = styled(FormGroup)`
   width: 50%;
