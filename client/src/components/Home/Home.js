@@ -11,10 +11,9 @@ import RightComponent from "../RightComponent";
 import MiddleComponent from "../MiddleComponent";
 import OpenedPost from './OpenedPost';
 
-const Home = (props) => {
+const Home = React.memo((props) => {
     const { logOut, user } = useUserAuth();
     const navigate = useNavigate();
-    const {index} = props;
 
     const handleLogout = async () => {
         try {
@@ -24,9 +23,18 @@ const Home = (props) => {
             console.log(error.message);
         }
     };
-    // const [left, setLeft] = useState(TypesComponent);
-    // const [middle, setMiddle] = useState();
-    // const [right, setRight] = useState(Tags);
+
+    const {index} = props;
+    let leftC, rightC, middleC;
+    if(index === 0){
+        leftC = TypesComponent;
+        rightC= Tags;
+        middleC = PostsList;
+    }else if(index === 1){
+        leftC = React.memo(TypesComponent);
+        rightC= React.memo(Tags);
+        middleC = React.memo(OpenedPost);
+    }
 
     return (
         <div className="w-100" style={{ padding: 0 }}>
@@ -42,18 +50,18 @@ const Home = (props) => {
             <Container fluid>
                 <Row className="w-100">
                     <Col xs={3} style={{ padding: 0 }}>
-                        <LeftComponent Component={OpenedPost}/> 
+                        <LeftComponent Component={leftC}/> 
                     </Col>
                     <Col xs={6} style={{ padding: 0 }}>
-                        <MiddleComponent Component={OpenedPost}/>
+                        <MiddleComponent Component={middleC}/>
                     </Col>
                     <Col xs={3} style={{ padding: 0 }}>
-                        <RightComponent Component={OpenedPost}/>
+                        <RightComponent Component={rightC}/>
                     </Col>
                 </Row>
             </Container>
         </div>
     );
-}
+}, (prevprops, nextprops) => prevprops.index === nextprops.index);
 
 export default Home;

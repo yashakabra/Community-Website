@@ -63,7 +63,7 @@ function App() {
                 <Route path="/signup" element={<SignUp />} />
                 <Route
                   path="/home"
-                  element={<ProtectedRoute val={1} title={"WELCOME  "}/>}
+                  element={<ProtectedRoute val={1}/>}
                 ></Route>
                 <Route
                   path="/profile/create"
@@ -77,7 +77,7 @@ function App() {
                   path="/home/spost"
                   element={<ProtectedRoute val={4} />}
                 />
-                <Route path="/home/post" element={<CreatePostForm />} />
+                {/* <Route path="/home/post" element={<CreatePostForm />} /> */}
               </Routes>
             </UserAuthContextProvider>
           </Col>

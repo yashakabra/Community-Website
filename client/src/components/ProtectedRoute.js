@@ -6,7 +6,6 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./AddUserDetailForm";
 import { EditUserDetailForm } from "./EditUserDetailForm";
 import Home from "./Home/Home";
-import OpenedPost from "./Home/OpenedPost";
 
 const ProtectedRoute = (props) => {
     const auth = useUserAuth;
@@ -19,11 +18,11 @@ const ProtectedRoute = (props) => {
     
     let Component;
     if (val === 1) {
-        Component = (props) => <Home index={0}/>;
+        Component = <Home index={0}/>;
     } else if (val === 2) {
-        Component = AddUserDetailForm;
+        Component = <AddUserDetailForm/>;
     } else if (val === 3) {
-        Component = EditUserDetailForm;
+        Component = <EditUserDetailForm/>;
     } else if (val === 4) {
         Component = <Home index={1}/>;
     }
@@ -31,7 +30,7 @@ const ProtectedRoute = (props) => {
     return (
         <Container fluid style={{padding:0}}>
             <Row className="w-100" style={{padding:0}}>
-                <Component className="w-100" />
+                {Component}
             </Row>
         </Container>
     );
