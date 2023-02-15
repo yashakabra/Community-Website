@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { useUserAuth } from "../../context/UserAuthContext";
-import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Row, Col, Container } from "react-bootstrap";
-import TypesComponent from "./TypesComponent";
-import PostsList from "./PostsList";
-import Tags from "./Tags";
-import LeftComponent from "../LeftComponent";
-import RightComponent from "../RightComponent";
-import MiddleComponent from "../MiddleComponent";
-import OpenedPost from './OpenedPost';
+import TypesComponent from "../components/Home/TypesComponent";
+import PostsList from "../components/Home/PostsList";
+import Tags from "../components/Home/Tags";
+import LeftComponent from "../components/MajorComponents/LeftComponent";
+import RightComponent from "../components/MajorComponents/RightComponent";
+import MiddleComponent from "../components/MajorComponents/MiddleComponent";
+import OpenedPost from '../components/Home/OpenedPost';
+import { Tag } from "@mui/icons-material";
 
 const Home = React.memo((props) => {
     const { logOut, user } = useUserAuth();
@@ -50,13 +51,16 @@ const Home = React.memo((props) => {
             <Container fluid>
                 <Row className="w-100">
                     <Col xs={3} style={{ padding: 0 }}>
-                        <LeftComponent Component={leftC}/> 
+                        <LeftComponent Component={TypesComponent}/> 
                     </Col>
                     <Col xs={6} style={{ padding: 0 }}>
-                        <MiddleComponent Component={middleC}/>
+                        {<Routes>
+                            <Route path="/" element={<MiddleComponent Component={PostsList}/>}/>
+                            <Route path="/spost" element={<MiddleComponent Component={OpenedPost}/>}/>
+                        </Routes>}
                     </Col>
                     <Col xs={3} style={{ padding: 0 }}>
-                        <RightComponent Component={rightC}/>
+                        <RightComponent Component={Tags}/>
                     </Col>
                 </Row>
             </Container>

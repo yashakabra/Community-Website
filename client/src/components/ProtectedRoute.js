@@ -3,9 +3,9 @@ import 'bootstrap/dist/css/bootstrap.css';
 import { Row, Col, Container } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
-import { AddUserDetailForm } from "./AddUserDetailForm";
-import { EditUserDetailForm } from "./EditUserDetailForm";
-import Home from "./Home/Home";
+import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
+import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
+import Home from "../pages/Home";
 
 const ProtectedRoute = (props) => {
     const auth = useUserAuth;
@@ -23,9 +23,7 @@ const ProtectedRoute = (props) => {
         Component = <AddUserDetailForm/>;
     } else if (val === 3) {
         Component = <EditUserDetailForm/>;
-    } else if (val === 4) {
-        Component = <Home index={1}/>;
-    }
+    } 
     
     return (
         <Container fluid style={{padding:0}}>
