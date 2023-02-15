@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Col, Container, Navbar } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
 import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
 import Home from "../pages/Home";
+import NavBar from './NavBar';
 
 const ProtectedRoute = (props) => {
     const auth = useUserAuth;
@@ -28,6 +29,7 @@ const ProtectedRoute = (props) => {
     return (
         <Container fluid style={{padding:0}}>
             <Row className="w-100" style={{padding:0}}>
+                <NavBar/>
                 {Component}
             </Row>
         </Container>
