@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Container, Nav } from "react-bootstrap";
+import { Row, Col, Container, Navbar } from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
-import { AddUserDetailForm } from "./AddUserDetailForm";
-import { EditUserDetailForm } from "./EditUserDetailForm";
-import NavBar from "./NavBar";
-import Home from "./Home/Home";
-import OpenedPost from "./Home/OpenedPost";
+import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
+import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
+import Home from "../pages/Home";
+import NavBar from './NavBar';
 
 const ProtectedRoute = (props) => {
     const auth = useUserAuth;
@@ -20,20 +19,18 @@ const ProtectedRoute = (props) => {
     
     let Component;
     if (val === 1) {
-        Component = (props) => <Home index={0}/>;
+        Component = <Home index={0}/>;
     } else if (val === 2) {
-        Component = AddUserDetailForm;
+        Component = <AddUserDetailForm/>;
     } else if (val === 3) {
-        Component = EditUserDetailForm;
-    } else if (val === 4) {
-        Component = (props)=> <Home index={1}/>;
-    }
+        Component = <EditUserDetailForm/>;
+    } 
     
     return (
         <Container fluid style={{padding:0}}>
             <Row className="w-100" style={{padding:0}}>
                 <NavBar/>
-                <Component className="w-100" />
+                {Component}
             </Row>
         </Container>
     );

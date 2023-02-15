@@ -1,21 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useUserAuth } from "../../context/UserAuthContext";
-import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Row, Col, Container } from "react-bootstrap";
-import TypesComponent from "./TypesComponent";
-import PostsList from "./PostsList";
-import Tags from "./Tags";
-import LeftComponent from "../LeftComponent";
-import RightComponent from "../RightComponent";
-import MiddleComponent from "../MiddleComponent";
-import OpenedPost from './OpenedPost';
-// import Tags from "./Tags";
+import TypesComponent from "../components/Home/TypesComponent";
+import PostsList from "../components/Home/PostsList";
+import Tags from "../components/Home/Tags";
+import LeftComponent from "../components/MajorComponents/LeftComponent";
+import RightComponent from "../components/MajorComponents/RightComponent";
+import MiddleComponent from "../components/MajorComponents/MiddleComponent";
+import OpenedPost from '../components/Home/OpenedPost';
+import { Tag } from "@mui/icons-material";
 
-const Home = (props) => {
+const Home = React.memo((props) => {
     const { logOut, user } = useUserAuth();
     const navigate = useNavigate();
-    const {index} = props;
 
     const handleLogout = async () => {
         try {
@@ -25,9 +24,18 @@ const Home = (props) => {
             console.log(error.message);
         }
     };
-    // const [left, setLeft] = useState(TypesComponent);
-    // const [middle, setMiddle] = useState();
-    // const [right, setRight] = useState(Tags);
+
+    const {index} = props;
+    let leftC, rightC, middleC;
+    if(index === 0){
+        leftC = TypesComponent;
+        rightC= Tags;
+        middleC = PostsList;
+    }else if(index === 1){
+        leftC = React.memo(TypesComponent);
+        rightC= React.memo(Tags);
+        middleC = React.memo(OpenedPost);
+    }
 
     return (
         <div className="w-100" style={{ padding: 0 }}>
@@ -46,7 +54,10 @@ const Home = (props) => {
                         <LeftComponent Component={TypesComponent}/> 
                     </Col>
                     <Col xs={6} style={{ padding: 0 }}>
-                        <MiddleComponent Component={OpenedPost}/>
+                        {<Routes>
+                            <Route path="/" element={<MiddleComponent Component={PostsList}/>}/>
+                            <Route path="/spost" element={<MiddleComponent Component={OpenedPost}/>}/>
+                        </Routes>}
                     </Col>
                     <Col xs={3} style={{ padding: 0 }}>
                         <RightComponent Component={Tags}/>
@@ -55,6 +66,6 @@ const Home = (props) => {
             </Container>
         </div>
     );
-}
+}, (prevprops, nextprops) => prevprops.index === nextprops.index);
 
 export default Home;
