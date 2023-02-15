@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { addUserDetails } from "../../service/userDetailsAPI";
 import {
   FormGroup,
@@ -48,7 +48,7 @@ export const AddUserDetailForm = () => {
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if (e.target.name == "Job_Type") {
+    if (e.target.name === "Job_Type") {
       setValue(e.target.value);
     }
     setUser({ ...user, [e.target.name]: e.target.value });

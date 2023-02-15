@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useUserAuth } from "../context/UserAuthContext";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
@@ -10,7 +10,6 @@ import LeftComponent from "../components/MajorComponents/LeftComponent";
 import RightComponent from "../components/MajorComponents/RightComponent";
 import MiddleComponent from "../components/MajorComponents/MiddleComponent";
 import OpenedPost from '../components/Home/OpenedPost';
-import { Tag } from "@mui/icons-material";
 
 const Home = React.memo((props) => {
     const { logOut, user } = useUserAuth();
@@ -24,18 +23,6 @@ const Home = React.memo((props) => {
             console.log(error.message);
         }
     };
-
-    const {index} = props;
-    let leftC, rightC, middleC;
-    if(index === 0){
-        leftC = TypesComponent;
-        rightC= Tags;
-        middleC = PostsList;
-    }else if(index === 1){
-        leftC = React.memo(TypesComponent);
-        rightC= React.memo(Tags);
-        middleC = React.memo(OpenedPost);
-    }
 
     return (
         <div className="w-100" style={{ padding: 0 }}>

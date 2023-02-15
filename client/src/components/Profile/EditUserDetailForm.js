@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  addUserDetails,
   getUserDetails,
   editUserDetails,
 } from "../../service/userDetailsAPI";
@@ -48,7 +47,7 @@ export const EditUserDetailForm = () => {
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if (e.target.name == "Job_Type") {
+    if (e.target.name === "Job_Type") {
       setValue(e.target.value);
       console.log(e.target.value);
     }
@@ -61,7 +60,7 @@ export const EditUserDetailForm = () => {
       console.log("RETURN USER");
       return;
     }
-    if (userCurr.email == id) {
+    if (userCurr.email === id) {
       loadUserDetails();
       return;
     }

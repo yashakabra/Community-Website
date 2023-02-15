@@ -18,8 +18,6 @@ const Login = (props) => {
     flag: true,
   };
 
-  const PORT = 8000;
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -27,7 +25,7 @@ const Login = (props) => {
       await logIn(email, password);
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
-      if (flag == false) {
+      if (flag === false) {
         navigate("/profile/create");
       } else {
         navigate("/home");
@@ -44,7 +42,7 @@ const Login = (props) => {
       await googleSignIn();
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
-      if (flag == false) {
+      if (flag === false) {
         navigate("/profile/create");
       } else {
         navigate("/home");

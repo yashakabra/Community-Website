@@ -1,6 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Container, Navbar } from "react-bootstrap";
+import { Row, Container} from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
