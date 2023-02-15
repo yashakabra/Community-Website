@@ -5,6 +5,7 @@ import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./AddUserDetailForm";
 import { EditUserDetailForm } from "./EditUserDetailForm";
+import NavBar from "./NavBar";
 import Home from "./Home/Home";
 import OpenedPost from "./Home/OpenedPost";
 
@@ -25,12 +26,13 @@ const ProtectedRoute = (props) => {
     } else if (val === 3) {
         Component = EditUserDetailForm;
     } else if (val === 4) {
-        Component = <Home index={1}/>;
+        Component = (props)=> <Home index={1}/>;
     }
     
     return (
         <Container fluid style={{padding:0}}>
             <Row className="w-100" style={{padding:0}}>
+                <NavBar/>
                 <Component className="w-100" />
             </Row>
         </Container>

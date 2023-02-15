@@ -10,7 +10,7 @@ const PostsList = (props) => {
 
     return(
         <div style={{backgroundColor: 'red', height: '100vh'}}>
-            <Button onClick={sumbit}>Open post</Button>
+            <Button onClick={sumbit}>Post List</Button>
         </div>
     );
 }

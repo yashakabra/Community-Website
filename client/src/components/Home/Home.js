@@ -10,6 +10,7 @@ import LeftComponent from "../LeftComponent";
 import RightComponent from "../RightComponent";
 import MiddleComponent from "../MiddleComponent";
 import OpenedPost from './OpenedPost';
+// import Tags from "./Tags";
 
 const Home = (props) => {
     const { logOut, user } = useUserAuth();
@@ -42,13 +43,13 @@ const Home = (props) => {
             <Container fluid>
                 <Row className="w-100">
                     <Col xs={3} style={{ padding: 0 }}>
-                        <LeftComponent Component={OpenedPost}/> 
+                        <LeftComponent Component={TypesComponent}/> 
                     </Col>
                     <Col xs={6} style={{ padding: 0 }}>
                         <MiddleComponent Component={OpenedPost}/>
                     </Col>
                     <Col xs={3} style={{ padding: 0 }}>
-                        <RightComponent Component={OpenedPost}/>
+                        <RightComponent Component={Tags}/>
                     </Col>
                 </Row>
             </Container>
