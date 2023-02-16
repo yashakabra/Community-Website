@@ -6,7 +6,7 @@ const RightComponent = React.memo(({Component}) => {
     // const {Component} = props;
     console.log("RENDERED REIGHT");
     return (
-    <div style={{backgroundColor: 'lightblue', height: '100vh'}}>
+    <div style={{backgroundColor: 'lightblue'}}>
         <Component/>
     </div>
     );

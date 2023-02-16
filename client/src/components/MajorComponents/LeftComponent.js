@@ -3,7 +3,7 @@ import React from "react";
 const LeftComponent = React.memo((props) => {
     const {Component} = props;
     return (
-        <div style={{backgroundColor: 'orange', height: '100vh'}}>
+        <div style={{backgroundColor: 'orange' }}>
             <Component/>
         </div>
     );

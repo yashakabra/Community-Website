@@ -5,11 +5,12 @@ import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { getFlag } from "../service/loginUserAPI";
-
+import { useUserDetails } from "../context/UserDetailsContext";
 const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
+  const {setUserDetails,setAccount}=useUserDetails();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -27,9 +28,13 @@ const Login = (props) => {
       await logIn(email, password);
       const obj = await getFlag(currentUser);
       const flag = obj.data[0].flag;
+
       if (flag == false) {
         navigate("/profile/create");
       } else {
+
+        // const response=await setUserDetails(email);
+        // setAccount(response.data[0]);
         navigate("/home");
       }
     } catch (err) {

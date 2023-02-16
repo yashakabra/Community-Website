@@ -16,7 +16,7 @@ const addPostDetails = async (request, response) => {
 
   // console.log('op',postDetails)
 
-  const newPostDetails = new PostDetails(request.body);
+const newPostDetails = new PostDetails(request.body);
   try {
     await newPostDetails.save();
     response.status(200).json(newPostDetails);

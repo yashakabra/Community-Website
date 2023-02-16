@@ -29,7 +29,7 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
-  _id: "",
+  Email:"",
   Choice: 0,
   Title: "",
   photo: "",
@@ -84,7 +84,7 @@ export const CreatePostForm = () => {
     const formData = new FormData();
 
     user.Tags = tags;
-    formData.append("_id", userCurr.email);
+    formData.append("Email", userCurr.email);
     formData.append("Choice", user.Choice);
     formData.append("Title", user.Title);
     formData.append("photo", user.photo);

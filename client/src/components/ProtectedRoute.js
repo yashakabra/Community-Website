@@ -7,7 +7,7 @@ import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
 import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
 import Home from "../pages/Home";
 import NavBar from './NavBar';
-
+import Profile from '../pages/Profile'
 const ProtectedRoute = (props) => {
     const auth = useUserAuth;
     const { user } = useUserAuth();
@@ -21,7 +21,7 @@ const ProtectedRoute = (props) => {
     if (val === 1) {
         Component = <Home index={0}/>;
     } else if (val === 2) {
-        Component = <AddUserDetailForm/>;
+        Component = <Profile />;
     } else if (val === 3) {
         Component = <EditUserDetailForm/>;
     } 
