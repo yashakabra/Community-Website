@@ -19,7 +19,7 @@ const ProtectedRoute = (props) => {
     
     let Component;
     if (val === 1) {
-        Component = <Home index={0}/>;
+        Component = <Home/>;
     } else if (val === 2) {
         Component = <AddUserDetailForm/>;
     } else if (val === 3) {

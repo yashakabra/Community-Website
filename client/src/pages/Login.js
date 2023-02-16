@@ -32,7 +32,6 @@ const Login = (props) => {
       } else {
         const response=await setUserDetails(email);
         await setAccount(response.data[0]);
-        console.log("SETTING ACCOUNT HERE  ", account);
         navigate("/home");
       }
     } catch (err) {

@@ -32,11 +32,11 @@ export function UserAuthContextProvider({ children }) {
   }
 
   useEffect(() => {
+    console.log("WORKINGGGG");
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
     });
     return () => {
-      console.log("YE BBHI CALL HOTA H KYAAA")
       unsubscribe();
     };
   }, []);

@@ -14,9 +14,6 @@ const addPostDetails = async (request, response) => {
   // }
   // console.log("iop", request.file.path);
   request.body.photo = request.file.path;
-
-  // console.log('op',postDetails)
-
   const newPostDetails = new PostDetails(request.body);
   try {
     await newPostDetails.save();

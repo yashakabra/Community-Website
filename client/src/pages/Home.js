@@ -31,7 +31,6 @@ const Home = (props) => {
     }
 
     const {account} = useUserDetails();
-    console.log("INSIDE HOMEE  ", account);
 
     return (
         <div className="w-100" style={{ padding: 0 }}>
