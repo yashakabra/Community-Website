@@ -9,7 +9,7 @@ import Home from "../pages/Home";
 import NavBar from './NavBar';
 
 const ProtectedRoute = (props) => {
-    const auth = useUserAuth;
+    const auth = useUserAuth();
     const { user } = useUserAuth();
     const { val } = props;
 

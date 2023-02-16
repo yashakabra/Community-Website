@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import {
+  addUserDetails,
   getUserDetails,
   editUserDetails,
 } from "../../service/userDetailsAPI";
@@ -18,7 +19,7 @@ import {
 } from "@mui/material";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
-
+import { useUserDetails } from "../../context/UserDetailsContext";
 const Container = styled(FormGroup)`
   width: 50%;
   margin: 5% auto 0 auto;
@@ -40,14 +41,19 @@ const defaultValue = {
 };
 
 export const EditUserDetailForm = () => {
+
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
   const { user: userCurr } = useUserAuth();
-  const [id, setId] = useState("yac984@gmail.byn");
+  const {setAccount,account}=useUserDetails();
+  
+  console.log("INSIDE EDIT USER", account);
+
+  const [id, setId] = useState("");
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if (e.target.name === "Job_Type") {
+    if (e.target.name == "Job_Type") {
       setValue(e.target.value);
       console.log(e.target.value);
     }
@@ -56,41 +62,42 @@ export const EditUserDetailForm = () => {
   };
 
   useEffect(() => {
-    if (!userCurr) {
+    if (!account) {
       console.log("RETURN USER");
       return;
     }
-    if (userCurr.email === id) {
-      loadUserDetails();
-      return;
+    else
+    {
+      setUser(account);
+      console.log("INSIDE EDIT DETAILS ",account);
     }
-    if (userCurr) {
-      setId(userCurr.email);
-    }
-  }, [userCurr, id]);
+    
+  }, [account]);
 
-  const loadUserDetails = async () => {
-    console.log("INSIDE LOAD   ", id);
-    const data = {
-      id: id,
-    };
-    const response = await getUserDetails(data);
-    setUser(response.data[0]);
-  };
+  // const loadUserDetails = async () => {
+  //   console.log("INSIDE LOAD   ", id,account);
+
+  //   setUser(account);
+  // };
   const handleSubmit = async () => {
     user._id = id;
     console.log("INSIDE HANDLE SUBMIT", user);
     const data = {
       id: id,
     };
+    setAccount(user);
+    
     await editUserDetails(user, data);
     navigate("/home");
   };
+  const gotohome = () => {
+    navigate('/home')
+  }
 
   return (
     <>
       <Container>
-        <div>{userCurr && userCurr.email}</div>
+        {/* <div>{userCurr && userCurr.email}</div> */}
         <Typography variant="h2">Edit Your Details</Typography>
         <FormControl>
           <InputLabel>Name</InputLabel>
@@ -173,6 +180,7 @@ export const EditUserDetailForm = () => {
           </Button>
         </FormControl>
       </Container>
+      <Button onClick={gotohome}>Home </Button>
     </>
   );
 };

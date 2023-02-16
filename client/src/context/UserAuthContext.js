@@ -36,14 +36,14 @@ export function UserAuthContextProvider({ children }) {
       setUser(currentUser);
     });
     return () => {
+      console.log("YE BBHI CALL HOTA H KYAAA")
       unsubscribe();
     };
   }, []);
 
   return (
     <userAuthContext.Provider
-      value={{ user, signUp, logIn, logOut, googleSignIn }}
-    >
+      value={{ user, signUp, logIn, logOut, googleSignIn }}>
       {children}
     </userAuthContext.Provider>
   );

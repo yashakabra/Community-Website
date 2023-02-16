@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addUserDetails } from "../../service/userDetailsAPI";
 import {
   FormGroup,
@@ -16,7 +16,7 @@ import {
 import {  useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { updateFlag } from "../../service/loginUserAPI";
-
+import { useUserDetails } from "../../context/UserDetailsContext";
 const Container = styled(FormGroup)`
   width: 50%;
   margin: 5% auto 0 auto;
@@ -41,14 +41,14 @@ export const AddUserDetailForm = () => {
   const PORT = 8000;
 
   const { user: userCurr } = useUserAuth();
-
+  const { setAccount}=useUserDetails();
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
 
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
-    if (e.target.name === "Job_Type") {
+    if (e.target.name == "Job_Type") {
       setValue(e.target.value);
     }
     setUser({ ...user, [e.target.name]: e.target.value });
@@ -56,6 +56,7 @@ export const AddUserDetailForm = () => {
 
   const handleSubmit = async () => {
     user._id = userCurr.email;
+    setAccount(user);
     await addUserDetails(user);
     const data = {
       email: userCurr.email,

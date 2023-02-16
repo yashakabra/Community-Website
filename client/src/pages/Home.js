@@ -10,8 +10,10 @@ import LeftComponent from "../components/MajorComponents/LeftComponent";
 import RightComponent from "../components/MajorComponents/RightComponent";
 import MiddleComponent from "../components/MajorComponents/MiddleComponent";
 import OpenedPost from '../components/Home/OpenedPost';
+import { PostDetailContextProvider } from "../context/PostDetailContext";
+import { useUserDetails } from "../context/UserDetailsContext";
 
-const Home = React.memo((props) => {
+const Home = (props) => {
     const { logOut, user } = useUserAuth();
     const navigate = useNavigate();
 
@@ -24,6 +26,13 @@ const Home = React.memo((props) => {
         }
     };
 
+    const handleProfile = () => {
+        navigate('/profile/edit')
+    }
+
+    const {account} = useUserDetails();
+    console.log("INSIDE HOMEE  ", account);
+
     return (
         <div className="w-100" style={{ padding: 0 }}>
             <div className="p-4 box mt-3 text-center">
@@ -35,24 +44,31 @@ const Home = React.memo((props) => {
                     Log out
                 </Button>
             </div>
+            <div className="d-grid gap-2">
+                <Button variant="primary" onClick={handleProfile}>
+                    Profile
+                </Button>
+            </div>
             <Container fluid>
                 <Row className="w-100">
-                    <Col xs={3} style={{ padding: 0 }}>
-                        <LeftComponent Component={TypesComponent}/> 
-                    </Col>
-                    <Col xs={6} style={{ padding: 0 }}>
-                        {<Routes>
-                            <Route path="/" element={<MiddleComponent Component={PostsList}/>}/>
-                            <Route path="/spost" element={<MiddleComponent Component={OpenedPost}/>}/>
-                        </Routes>}
-                    </Col>
-                    <Col xs={3} style={{ padding: 0 }}>
-                        <RightComponent Component={Tags}/>
-                    </Col>
+                    <PostDetailContextProvider>
+                        <Col xs={3} style={{ padding: 0 }}>
+                            <LeftComponent Component={TypesComponent}/> 
+                        </Col>
+                        <Col xs={6} style={{ padding: 0 }}>
+                            {<Routes>
+                                <Route path="/" element={<MiddleComponent Component={PostsList}/>}/>
+                                <Route path="/spost" element={<MiddleComponent Component={OpenedPost}/>}/>
+                            </Routes>}
+                        </Col>
+                        <Col xs={3} style={{ padding: 0 }}>
+                            <RightComponent Component={Tags}/>
+                        </Col>
+                    </PostDetailContextProvider>
                 </Row>
             </Container>
         </div>
     );
-}, (prevprops, nextprops) => prevprops.index === nextprops.index);
+};
 
 export default Home;
