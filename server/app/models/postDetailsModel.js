@@ -9,10 +9,15 @@ const defaultValue = {
 };
 
 const TempModel = new mongoose.Schema({
-  _id: {
+  Email: {
     type: String,
     required: true,
     trim: true,
+  },
+  UserName:{
+    type:String,
+    required:true,
+    trim:true,
   },
   Choice: {
     type: Number,

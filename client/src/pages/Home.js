@@ -12,6 +12,7 @@ import MiddleComponent from "../components/MajorComponents/MiddleComponent";
 import OpenedPost from '../components/Home/OpenedPost';
 import { PostDetailContextProvider } from "../context/PostDetailContext";
 import { useUserDetails } from "../context/UserDetailsContext";
+import { CreatePostForm } from "../components/Home/CreatePostForm";
 
 const Home = (props) => {
     const { logOut, user } = useUserAuth();
@@ -58,6 +59,7 @@ const Home = (props) => {
                             {<Routes>
                                 <Route path="/" element={<MiddleComponent Component={PostsList}/>}/>
                                 <Route path="/spost" element={<MiddleComponent Component={OpenedPost}/>}/>
+                                <Route path="/post" element={<MiddleComponent Component={CreatePostForm}/>}/>
                             </Routes>}
                         </Col>
                         <Col xs={3} style={{ padding: 0 }}>
