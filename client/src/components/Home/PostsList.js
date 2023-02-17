@@ -15,18 +15,18 @@ const PostsList = (props) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            const data = await getAllPostList();
-            setPosts(data);
+            const response = await getAllPostList();
+            console.log("INSIDE POSTS LIST  ", response.data[0], response.data[1]);
+            setPosts(response.data);
         };
         fetchData();
     }, []);
 
     return(
-        <div style={{backgroundColor: 'red', height: '100vh'}}>
-            <Button onClick={sumbit}>Open post</Button>
+        <div >
             {posts && 
                 posts.map((post) => {
-                    <PostCard details={post}/>
+                    return <PostCard key={post._id} details={post}/>
                 })
             }
         </div>

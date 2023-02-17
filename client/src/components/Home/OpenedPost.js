@@ -1,50 +1,41 @@
 import { Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { usePostDetail } from "../../context/PostDetailContext";
 import { getPostDetails } from "../../service/postDetailsAPI";
 import Card from 'react-bootstrap/Card';
 
 const defaultValue = {
-
+    Choice: "",
+    Title: "",
+    Image: "",
+    Details: "",
+    Tags: [],
 }
 
 const OpenedPost = (props) => {
 
-    const { postId, openPost, setOpenPost, setPostId } = usePostDetail();
-    const [details, setDetails] = useState(defaultValue);
     const navigate = useNavigate();
+    const { id } = useParams();
+    const [post, setPost] = useState(defaultValue);
 
-    const back = () => {
-        navigate("/home")
+    const fetchDetails = async () => {
+        const response = await getPostDetails(id);
+        setPost(response.data[0]);   
     }
 
-    useEffect(() => {
-        if (!postId) {
-            return;
-        }
-        fetchData(postId);
-    }, [postId])
-
-    const fetchData = async (postId) => {
-        const obj = {
-            _id: postId,
-        }
-        const response = await getPostDetails(obj);
-        setDetails(response.data[0]);
-    }
+    fetchDetails();
 
     return (
         <div style={{ backgroundColor: 'green', height: '100vh' }}>
-            <Button onClick={back}>Back</Button>
             <Card>
+                <Card.Title>{post.Title}</Card.Title>
+                <Card.Img variant="bottom" src={post.Image}/>
                 <Card.Body>
                     <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
+                        {post.Details}
                     </Card.Text>
                 </Card.Body>
-                <Card.Img variant="bottom" src="holder.js/100px180" />
             </Card>
         </div>
     );

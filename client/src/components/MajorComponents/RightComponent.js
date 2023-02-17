@@ -1,10 +1,11 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 const RightComponent = React.memo(({Component}) => {
     return (
-    <div style={{backgroundColor: 'lightblue', height: '100vh'}}>
+    <Container style={{ paddingTop : "5px"}}>
         <Component/>
-    </div>
+    </Container>
     );
 });
 

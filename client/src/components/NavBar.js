@@ -11,6 +11,8 @@ import TurnedInRoundedIcon from "@mui/icons-material/TurnedInRounded";
 import SourceIcon from "@mui/icons-material/Source";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ChatIcon from "@mui/icons-material/Chat";
+
+
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -50,6 +52,8 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
   },
 }));
+
+
 
 export default function NavBar() {
   //   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -153,7 +157,7 @@ export default function NavBar() {
   // }
 
   return (
-    <Box sx={{ flexGrow: 1 }}>
+    <Box sx={{ flexGrow: 1}} >
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -220,35 +224,9 @@ export default function NavBar() {
                 <AccountBoxIcon />
               </Badge>
             </IconButton>
-
-            {/* <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountBoxIcon />
-            </IconButton> */}
           </Box>
-          {/* <Box sx={{ display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </Box> */}
         </Toolbar>
       </AppBar>
-      {/* {renderMobileMenu}
-      {renderMenu} */}
     </Box>
   );
 }

@@ -1,11 +1,12 @@
 import React from "react";
+import { Container } from "react-bootstrap";
 
 const MiddleComponent = React.memo((props) => {
     const {Component} = props;
     return (
-        <div style={{backgroundColor: 'red', height: '100vh'}}>
+        <Container className="border" style={{ paddingTop : "5px"}}>
             <Component/>
-        </div>
+        </Container>
     );
 });
 

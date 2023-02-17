@@ -70,7 +70,6 @@ export const EditUserDetailForm = () => {
       id: id,
     };
     setAccount(user);
-    
     await editUserDetails(user, data);
     navigate("/home");
   };

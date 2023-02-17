@@ -27,12 +27,14 @@ const ProtectedRoute = (props) => {
     } 
     
     return (
-        <Container fluid style={{padding:0}}>
-            <Row className="w-100" style={{padding:0}}>
+        <Container className="mx-0">
+            <Row className="w-100 mx-0 border" style={{padding:0}}>
                 <NavBar/>
+                <div style={{paddingTop:'10px'}}>
                 {Component}
+                </div>
             </Row>
-        </Container>
+         </Container>
     );
 }
 

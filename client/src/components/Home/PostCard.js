@@ -6,29 +6,26 @@ import { usePostDetail } from "../../context/PostDetailContext";
 const PostCard = (props) => {
     const navigate = useNavigate();
 
-    const {postId, openPost, setOpenPost, setPostId} = usePostDetail();
     const {details} = props;
 
     const cardSelect = () => {
-        setPostId(details._id);
-        setOpenPost(true);
-        navigate('/home/spost');
+        navigate(`/home/${details._id}`)
     }
 
     const profileSelect = () => {
-        // setProfileId(details.email);
-        // setProfile(true);
     }
 
+    console.log("INSIDE POST CARD  ",details);
+
     return (
-        <Card>
-            <Card.Body>
+        <Card className="mt-2">
+            <Card.Body style={{cursor:'pointer'}} onClick={cardSelect}>
                 <blockquote className="blockquote mb-0">
-                    <Card.Text onClick={cardSelect} style={{cursor: 'pointer'}}>
+                    <Card.Text>
                         {details.Title}
                     </Card.Text>                    
                     <footer className="blockquote-footer">
-                        @ <cite title="Source Title" onClick={profileSelect} style={{cursor: 'pointer'}}>{details.UserName}</cite>
+                        @<cite title="Source Title" onClick={profileSelect} style={{cursor: 'pointer'}}>{details.UserName}</cite>
                     </footer>
                 </blockquote>
             </Card.Body>

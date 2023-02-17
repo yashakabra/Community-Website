@@ -11,10 +11,9 @@ function App() {
   return (
     <UserDetailsContextProvider>
       <UserAuthContextProvider>
-        <BrowserRouter>
-          <Container fluid style={{ padding: 0, margin: 0 }}>
-            <Row className="w-100" style={{ padding: 0, margin: 0 }}>
-              <Col md={12}>
+        <BrowserRouter >
+          <Container fluid className="mx-0" style={{position:"fixed"}}>
+            <Row className="w-100 mx-0" style={{ padding: 0, margin: 0 }} >
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />
@@ -31,7 +30,6 @@ function App() {
                     element={<ProtectedRoute val={3} />}
                   />
                 </Routes>
-              </Col>
             </Row>
           </Container>
         </BrowserRouter>

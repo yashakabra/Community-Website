@@ -10,9 +10,9 @@ export const addPostDetails = async (data) => {
   }
 };
 
-export const getPostDetails = async (data) => {
+export const getPostDetails = async (id) => {
   try{
-    return await axios.post(`${URL}/post/getPostDetails`, data);
+    return await axios.get(`${URL}/post/getPostDetails/${id}`);
   }catch (error){
     console.log("ERROR IN GETING POST DATA ", error);
   }
@@ -20,7 +20,8 @@ export const getPostDetails = async (data) => {
 
 export const getAllPostList = async () => {
   try{
-    return await axios.post(`${URL}/post/getAllPostList`).data;
+    const response = await axios.get(`${URL}/post/getAllPostList`);
+    return response;
   }catch(error){
     console.log("ERROR IN GETING ALL POST LIST DATA ", error);
   }
