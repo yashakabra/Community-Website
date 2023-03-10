@@ -11,6 +11,9 @@ import TurnedInRoundedIcon from "@mui/icons-material/TurnedInRounded";
 import SourceIcon from "@mui/icons-material/Source";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import ChatIcon from "@mui/icons-material/Chat";
+import HomeIcon from "@mui/icons-material/Home";
+import { useNavigate } from "react-router-dom";
+import Home from "@mui/icons-material/Home";
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
@@ -152,6 +155,7 @@ export default function NavBar() {
 
   // }
 
+  const navigate=useNavigate();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static">
@@ -161,6 +165,16 @@ export default function NavBar() {
             noWrap
             component="div"
             sx={{ display: { xs: "none", sm: "block" } }}
+            onClick={() => {
+              navigate("/home");
+            }}
+            style={{
+              hover: {
+                "&:hover": {
+                  backgroundColor: "rgb(7, 177, 77, 0.42)",
+                },
+              },
+            }}
           >
             Community Website
           </Typography>
@@ -176,6 +190,20 @@ export default function NavBar() {
           </Search>
           <Box sx={{ flexGrow: 0.7 }} />
           <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <IconButton
+              size="large"
+              aria-label="home"
+              color="inherit"
+              title="Home"
+              onClick={() => {
+                navigate("/home");
+              }}
+            >
+              <Badge color="error">
+                <HomeIcon />
+              </Badge>
+            </IconButton>
+
             <IconButton
               size="large"
               aria-label="saved-posts"
@@ -214,8 +242,11 @@ export default function NavBar() {
               size="large"
               aria-label="my-account"
               color="inherit"
-              title="My Account">
-                
+              title="My Account"
+              onClick={() => {
+                navigate("/profile");
+              }}
+            >
               <Badge color="error">
                 <AccountBoxIcon />
               </Badge>

@@ -28,7 +28,7 @@ const Home = (props) => {
     };
 
     const handleProfile = () => {
-        navigate('/profile/edit')
+        navigate('/profile')
     }
 
     return (

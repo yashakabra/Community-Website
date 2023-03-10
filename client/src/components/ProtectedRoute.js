@@ -22,9 +22,7 @@ const ProtectedRoute = (props) => {
         Component = <Home/>;
     } else if (val === 2) {
         Component = <Profile />;
-    } else if (val === 3) {
-        Component = <EditUserDetailForm/>;
-    } 
+    }
     
     return (
         <Container fluid style={{padding:0}}>

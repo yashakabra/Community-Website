@@ -163,8 +163,12 @@ export const EditUserDetailForm = () => {
             Submit
           </Button>
         </FormControl>
+        <FormControl>
+          <Button variant="contained" onClick={gotohome}>
+            Home
+          </Button>
+        </FormControl>
       </Container>
-      <Button onClick={gotohome}>Home </Button>
     </>
   );
 };

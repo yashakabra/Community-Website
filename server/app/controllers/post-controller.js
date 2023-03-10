@@ -13,7 +13,8 @@ const addPostDetails = async (request, response) => {
   //     _id,Choice,Title,photo,Details,Tags,
   // }
   // console.log("iop", request.file.path);
-  request.body.photo = request.file.path;
+  // request.body.photo = request.file.path;
+  console.log("op",request.body);
   const newPostDetails = new PostDetails(request.body);
   try {
     await newPostDetails.save();

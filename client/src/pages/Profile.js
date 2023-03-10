@@ -13,6 +13,8 @@ import OpenedPost from "../components/Home/OpenedPost";
 import { Tag } from "@mui/icons-material";
 import { EditUserDetailForm } from "../components/Profile/EditUserDetailForm";
 import { ProfileDetails } from "../components/Profile/ProfileDetails";
+import { ProfileLeft } from "../components/Profile/ProfileLeft";
+import { ProfileRight } from "../components/Profile/ProfileRight";
 const Profile =(props) => {
     const { user } = useUserAuth();
     const navigate = useNavigate();
@@ -21,12 +23,12 @@ const Profile =(props) => {
 
     return (
       <div className="w-100" style={{ padding: 0 }}>
-        <Container fluid style={{ overflow: "auto" , height: "650px" }}>
+        <Container fluid style={{ overflow: "auto", height: "650px" }}>
           <Row className="w-100">
-            <Col xs={3} style={{ padding: 0 }}>
-              <LeftComponent Component={TypesComponent} />
+            <Col xs={3} style={{ padding: 0,}}>
+              <LeftComponent Component={ProfileLeft} />
             </Col>
-            <Col xs={6} style={{ padding: 0 }}>
+            <Col xs={6} style={{ padding: 0, }}>
               {
                 <Routes>
                   <Route
@@ -40,8 +42,8 @@ const Profile =(props) => {
                 </Routes>
               }
             </Col>
-            <Col xs={3} style={{ padding: 0 }}>
-              <RightComponent Component={Tags} />
+            <Col xs={3} style={{ padding: 0,}}>
+              <RightComponent Component={ProfileRight} />
             </Col>
           </Row>
         </Container>

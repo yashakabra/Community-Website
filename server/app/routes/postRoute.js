@@ -7,7 +7,7 @@ const { getAllPostList } = require("../controllers/post-controller");
 
 const router = express.Router();
 
-router.post("/addPostDetails", upload.single("photo"), addPostDetails);
+router.post("/addPostDetails",addPostDetails);
 
 router.post("/getPostDetails", getPostDetails);
 

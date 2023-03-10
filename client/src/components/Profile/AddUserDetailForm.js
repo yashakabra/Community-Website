@@ -28,6 +28,7 @@ const Container = styled(FormGroup)`
 const defaultValue = {
   _id: "",
   Name: "",
+  Image:"",
   Age: "",
   UserName: "",
   Job_Type: 0,
