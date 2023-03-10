@@ -3,7 +3,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { Routes, Route, useNavigate } from "react-router-dom";
 import { Button } from "react-bootstrap";
 import { Row, Col, Container } from "react-bootstrap";
-import TypesComponent from "../components/Home/TypesComponent";
+import TypesComponent from "../components/Home/SideBar";
 import PostsList from "../components/Home/PostsList";
 import Tags from "../components/Home/Tags";
 import LeftComponent from "../components/MajorComponents/LeftComponent";
