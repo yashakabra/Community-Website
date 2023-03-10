@@ -27,7 +27,7 @@ const OpenedPost = (props) => {
     fetchDetails();
 
     return (
-        <div style={{ backgroundColor: 'green', height: '100vh' }}>
+        <div style={{height: '100vh' }}>
             <Card>
                 <Card.Title>{post.Title}</Card.Title>
                 <Card.Img variant="bottom" src={post.Image}/>

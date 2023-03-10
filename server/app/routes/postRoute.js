@@ -9,8 +9,8 @@ const router = express.Router();
 
 router.post("/addPostDetails", upload.single("photo"), addPostDetails);
 
-router.post("/getPostDetails", getPostDetails);
+router.get("/getPostDetails/:id", getPostDetails);
 
-router.post("/getAllPostList", getAllPostList);
+router.get("/getAllPostList", getAllPostList);
 
 module.exports = router;

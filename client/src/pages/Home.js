@@ -34,7 +34,7 @@ const Home = (props) => {
     const {account} = useUserDetails();
 
     return (
-        <Container className="w-100" style={{ padding: 0 }}>
+        <Container className="w-100 border">
             {/* <div className="p-4 box mt-3 text-center">
                 Hello Welcome <br />
                 {user && user.email}
@@ -52,7 +52,7 @@ const Home = (props) => {
             <Container fluid>
                 <Row className="w-100 my-0">
                     <PostDetailContextProvider>
-                        <Col xs={3} style={{ padding: 0 }} className="mx-0">
+                        <Col xs={3} style={{ padding: 0, position:'sticky', top:0 }} className="mx-0">
                             <LeftComponent Component={TypesComponent}/> 
                         </Col>
                         <Col xs={6} style={{ padding: 0}} className="mx-0">

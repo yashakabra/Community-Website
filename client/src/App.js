@@ -12,8 +12,8 @@ function App() {
     <UserDetailsContextProvider>
       <UserAuthContextProvider>
         <BrowserRouter >
-          <Container fluid className="mx-0" style={{position:"fixed"}}>
-            <Row className="w-100 mx-0" style={{ padding: 0, margin: 0 }} >
+          <Container fluid className="mx-0 border" style={{paddingTop:'70px'}}>
+            <Row className="w-100 mx-0">
                 <Routes>
                   <Route path="/login" element={<Login />} />
                   <Route path="/signup" element={<SignUp />} />

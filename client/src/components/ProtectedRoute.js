@@ -7,6 +7,7 @@ import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
 import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
 import Home from "../pages/Home";
 import NavBar from './NavBar';
+import zIndex from "@mui/material/styles/zIndex";
 
 const ProtectedRoute = (props) => {
     const auth = useUserAuth();
@@ -28,11 +29,9 @@ const ProtectedRoute = (props) => {
     
     return (
         <Container className="mx-0">
-            <Row className="w-100 mx-0 border" style={{padding:0}}>
-                <NavBar/>
-                <div style={{paddingTop:'10px'}}>
+            <Row className="w-100 mx-0" style={{padding:0}}>
+                <NavBar />
                 {Component}
-                </div>
             </Row>
          </Container>
     );

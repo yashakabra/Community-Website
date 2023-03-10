@@ -24,10 +24,10 @@ const addPostDetails = async (request, response) => {
 };
 
 const getPostDetails = async (request, response) => {
-  const id = request.body.id;
+  const id = request.params.id;
   try{
     const postDetails = await PostDetails.find({_id:id});
-    return response.status(200).json(postDetails);
+    response.status(200).json(postDetails);
   }catch(error){
     response.status(401).json({ message: error.message });
   }
@@ -35,7 +35,8 @@ const getPostDetails = async (request, response) => {
 
 const getAllPostList = async (request, response) => {
   try{
-   
+    const allPosts = await PostDetails.find({});
+    response.status(200).json(allPosts);
   }catch(error){
     response.status(401).json({ message: error.message});
   }
