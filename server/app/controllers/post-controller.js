@@ -1,4 +1,5 @@
 const PostDetails = require("../models/postDetailsModel.js");
+
 const addPostDetails = async (request, response) => {
   // const postDetails = request.body;
   // const _id=req.body._id;
@@ -11,11 +12,9 @@ const addPostDetails = async (request, response) => {
   // const postDetails={
   //     _id,Choice,Title,photo,Details,Tags,
   // }
-  console.log("iop", request.file.path);
-  request.body.photo = request.file.path;
-
-  // console.log('op',postDetails)
-
+  // console.log("iop", request.file.path);
+  // request.body.photo = request.file.path;
+  console.log("op",request.body);
   const newPostDetails = new PostDetails(request.body);
   try {
     await newPostDetails.save();
@@ -25,4 +24,23 @@ const addPostDetails = async (request, response) => {
   }
 };
 
-module.exports = { addPostDetails };
+const getPostDetails = async (request, response) => {
+  const id = request.params.id;
+  try{
+    const postDetails = await PostDetails.find({_id:id});
+    response.status(200).json(postDetails);
+  }catch(error){
+    response.status(401).json({ message: error.message });
+  }
+}
+
+const getAllPostList = async (request, response) => {
+  try{
+    const allPosts = await PostDetails.find({});
+    response.status(200).json(allPosts);
+  }catch(error){
+    response.status(401).json({ message: error.message});
+  }
+}
+
+module.exports = { addPostDetails, getPostDetails, getAllPostList };

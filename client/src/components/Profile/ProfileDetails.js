@@ -30,7 +30,7 @@ const Container = styled(FormGroup)`
 
 const defaultValue = {
   _id: "",
-  Email:"",
+  Email: "",
   Name: "",
   Age: "",
   UserName: "",
@@ -41,70 +41,47 @@ const defaultValue = {
   Introduction: "",
 };
 
-export const EditUserDetailForm = () => {
-
+export const ProfileDetails = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-  const {setAccount,account}=useUserDetails();
+  const { setAccount, account } = useUserDetails();
 
+//   setUser(account);
   const [id, setId] = useState("");
   const navigate = useNavigate();
 
-  const onValueChange = (e) => {
-    if (e.target.name == "Job_Type") {
-      setValue(e.target.value);
-    }
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
-
+  
+  console.log('hello world',account);
+//   setUser(account);
   useEffect(() => {
-    if (!account) {
-      return;
-    }else{
+    // if (!account) {
+    //      console.log("op");
+    //       return;
+    // } else {
       setUser(account);
-    }
+    // }
   }, [account]);
 
-  const handleSubmit = async () => {
-    user._id = id;
-    const data = {
-      id: id,
-    };
-    setAccount(user);
-    await editUserDetails(user, data);
+  
+  const gotohome = () => {
     navigate("/home");
   };
-  const gotohome = () => {
-    navigate('/home')
-  }
 
   return (
     <>
       <Container>
-        <Typography variant="h2">Edit Your Details</Typography>
+        <Typography variant="h2">Your Profile Details</Typography>
         <FormControl>
           <InputLabel>Name</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="Name"
-            value={user.Name}
-          />
+          <Input name="Name" value={user.Name} />
         </FormControl>
         <FormControl>
           <InputLabel>Age</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="Age"
-            value={user.Age}
-          />
+          <Input name="Age" value={user.Age} />
         </FormControl>
         <FormControl>
           <InputLabel>UserName</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="UserName"
-            value={user.UserName}
-          />
+          <Input name="UserName" value={user.UserName} />
         </FormControl>
         <FormControl>
           <FormLabel id="demo-controlled-radio-buttons-group">
@@ -114,7 +91,6 @@ export const EditUserDetailForm = () => {
             aria-labelledby="demo-controlled-radio-buttons-group"
             name="Job_Type"
             value={user.Job_Type}
-            onChange={(e) => onValueChange(e)}
           >
             <FormControlLabel
               value="0"
@@ -127,46 +103,22 @@ export const EditUserDetailForm = () => {
         </FormControl>
         <FormControl>
           <InputLabel>City</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="City"
-            value={user.City}
-          />
+          <Input name="City" value={user.City} />
         </FormControl>
         <FormControl>
           <InputLabel>State</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="State"
-            value={user.State}
-          />
+          <Input name="State" value={user.State} />
         </FormControl>
         <FormControl>
           <InputLabel>Pincode</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="Pincode"
-            value={user.Pincode}
-          />
+          <Input name="Pincode" value={user.Pincode} />
         </FormControl>
         <FormControl>
           <InputLabel>Introduction About Yourself</InputLabel>
-          <Input
-            onChange={(e) => onValueChange(e)}
-            name="Introduction"
-            value={user.Introduction}
-          />
+          <Input name="Introduction" value={user.Introduction} />
         </FormControl>
-        <FormControl>
-          <Button variant="contained" onClick={() => handleSubmit()}>
-            Submit
-          </Button>
-        </FormControl>
-        <FormControl>
-          <Button variant="contained" onClick={gotohome}>
-            Home
-          </Button>
-        </FormControl>
+
+        <Button onClick={gotohome}>Home </Button>
       </Container>
     </>
   );

@@ -6,7 +6,7 @@ const {
 } = require("../controllers/login-controller");
 
 const router = express.Router();
-console.log("LOGIN ROUTES");
+
 router.post("/getFlag", getFlag);
 
 router.post("/updateFlag", updateFlag);

@@ -1,15 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import 'bootstrap/dist/css/bootstrap.css';
-import { Row, Col, Container, Navbar } from "react-bootstrap";
+import { Row, Container} from "react-bootstrap";
 import { Navigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
 import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
 import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
 import Home from "../pages/Home";
 import NavBar from './NavBar';
-
+import Profile from '../pages/Profile'
 const ProtectedRoute = (props) => {
-    const auth = useUserAuth;
+    const auth = useUserAuth();
     const { user } = useUserAuth();
     const { val } = props;
 
@@ -19,20 +19,18 @@ const ProtectedRoute = (props) => {
     
     let Component;
     if (val === 1) {
-        Component = <Home index={0}/>;
+        Component = <Home/>;
     } else if (val === 2) {
-        Component = <AddUserDetailForm/>;
-    } else if (val === 3) {
-        Component = <EditUserDetailForm/>;
-    } 
+        Component = <Profile />;
+    }
     
     return (
-        <Container fluid style={{padding:0}}>
-            <Row className="w-100" style={{padding:0}}>
-                <NavBar/>
+        <Container className="mx-0">
+            <Row className="w-100 mx-0" style={{padding:0}}>
+                <NavBar />
                 {Component}
             </Row>
-        </Container>
+         </Container>
     );
 }
 
