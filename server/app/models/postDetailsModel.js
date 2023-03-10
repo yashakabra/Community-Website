@@ -24,6 +24,11 @@ const TempModel = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  Title: {
+    type: String,
+    required: true,
+    trim: true,
+  },
   photo: {
     type: String,
     required: true,

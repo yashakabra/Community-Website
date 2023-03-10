@@ -7,8 +7,12 @@ import { AddUserDetailForm } from "./Profile/AddUserDetailForm";
 import { EditUserDetailForm } from "./Profile/EditUserDetailForm";
 import Home from "../pages/Home";
 import NavBar from './NavBar';
+<<<<<<< HEAD
 import zIndex from "@mui/material/styles/zIndex";
 
+=======
+import Profile from '../pages/Profile'
+>>>>>>> b75312ab25042faa85b8945d800a9700cdcebdf9
 const ProtectedRoute = (props) => {
     const auth = useUserAuth();
     const { user } = useUserAuth();
@@ -22,10 +26,8 @@ const ProtectedRoute = (props) => {
     if (val === 1) {
         Component = <Home/>;
     } else if (val === 2) {
-        Component = <AddUserDetailForm/>;
-    } else if (val === 3) {
-        Component = <EditUserDetailForm/>;
-    } 
+        Component = <Profile />;
+    }
     
     return (
         <Container className="mx-0">

@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { getUserDetails } from "../service/userDetailsAPI";
-
 const userDetailsContext = createContext();
 
 export function UserDetailsContextProvider({ children }) {

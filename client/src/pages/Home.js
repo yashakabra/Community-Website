@@ -17,7 +17,7 @@ import { CreatePostForm } from "../components/Home/CreatePostForm";
 const Home = (props) => {
     const { logOut, user } = useUserAuth();
     const navigate = useNavigate();
-
+    const {account}=useUserDetails();
     const handleLogout = async () => {
         try {
             await logOut();
@@ -28,10 +28,8 @@ const Home = (props) => {
     };
 
     const handleProfile = () => {
-        navigate('/profile/edit')
+        navigate('/profile')
     }
-
-    const {account} = useUserDetails();
 
     return (
         <Container className="w-100 border">

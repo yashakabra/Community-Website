@@ -21,6 +21,9 @@ import { addPostDetails } from "../../service/postDetailsAPI";
 import { useUserAuth } from "../../context/UserAuthContext";
 import {useUserDetails} from "../../context/UserDetailsContext";
 import { useNavigate } from "react-router-dom";
+import { storage } from "../../config/firebase";
+import {ref, uploadBytes,getDownloadURL} from "firebase/storage"
+import {v4} from "uuid";
 const Container = styled(FormGroup)`
   width: 50%;
   margin: 5% auto 0 auto;
@@ -71,31 +74,72 @@ export const CreatePostForm = () => {
   const { user: userCurr } = useUserAuth();
   const {account}=useUserDetails();
   const navigate = useNavigate();
-
+  const [imageUpload, setImageUpload] = useState(null);
   const onValueChange = (e) => {
     if (e.target.name == "Choice") {
       setValue(e.target.value);
       console.log(e.target.value);
     }
-
+    
     setUser({ ...user, [e.target.name]: e.target.value });
     console.log(user);
   };
 
+  const uploadImage = async () => {
+    if (imageUpload == null) return;
+    const metadata = {
+      contentType: "image/jpeg",
+    };
+
+    const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
+    uploadBytes(imageRef, imageUpload, metadata).then(() => {
+      alert("Image Uploaded");
+     
+    });
+
+    await getPhoto(imageRef);
+  }
+
+  const getPhoto=(imageRef)=>{
+  getDownloadURL(imageRef)
+    .then((url) => {
+      // Insert url into an <img> tag to "download"
+      setUser({...user,photo:url});
+    })
+    .catch((error) => {
+      // A full list of error codes is available at
+      // https://firebase.google.com/docs/storage/web/handle-errors
+      switch (error.code) {
+        case "storage/object-not-found":
+          // File doesn't exist
+          break;
+        case "storage/unauthorized":
+          // User doesn't have permission to access the object
+          break;
+        case "storage/canceled":
+          // User canceled the upload
+          break;
+
+        // ...
+
+        case "storage/unknown":
+          // Unknown error occurred, inspect the server response
+          break;
+      }
+    })
+  };
+
   const handleSubmit = async () => {
     //   await addUserDetails(user);
-    const formData = new FormData();
-
+    await uploadImage();
+    // await getPhoto();
+    user.Email=userCurr.email;
+    user.UserName=account.UserName;
+    // user.photo="po";
     user.Tags = tags;
-    formData.append("Email", userCurr.email);
-    formData.append("UserName",account.UserName);
-    formData.append("Choice", user.Choice);
-    formData.append("Title", user.Title);
-    formData.append("photo", user.photo);
-    formData.append("Details", user.Details);
-    formData.append("Tags", user.Tags);
-    console.log(formData);
-    await addPostDetails(formData);
+   
+    console.log(user);
+    await addPostDetails(user);
     // console.log(user);
     navigate('/home');
 
@@ -108,14 +152,16 @@ export const CreatePostForm = () => {
     const newtags = tags.filter((val) => val !== value);
     SetTags(newtags);
   };
+  
   const handleOnSubmit = (e) => {
     e.preventDefault();
+    
+
     SetTags([...tags, tagRef.current.value]);
     tagRef.current.value = "";
   };
   const handlePhoto = (e) => {
-    console.log(e.target.files[0].name);
-    setUser({ ...user, photo: e.target.files[0] });
+    setImageUpload(e.target.files[0]);
   };
 
   return (
