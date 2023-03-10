@@ -45,10 +45,7 @@ export const EditUserDetailForm = () => {
 
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-  const { user: userCurr } = useUserAuth();
   const {setAccount,account}=useUserDetails();
-  
-  console.log("INSIDE EDIT USER", account);
 
   const [id, setId] = useState("");
   const navigate = useNavigate();
@@ -56,33 +53,20 @@ export const EditUserDetailForm = () => {
   const onValueChange = (e) => {
     if (e.target.name == "Job_Type") {
       setValue(e.target.value);
-      console.log(e.target.value);
     }
-    console.log(user);
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
   useEffect(() => {
     if (!account) {
-      console.log("RETURN USER");
       return;
-    }
-    else
-    {
+    }else{
       setUser(account);
-      console.log(account);
     }
-    
   }, [account]);
 
-  // const loadUserDetails = async () => {
-  //   console.log("INSIDE LOAD   ", id,account);
-
-  //   setUser(account);
-  // };
   const handleSubmit = async () => {
     user._id = id;
-    console.log("INSIDE HANDLE SUBMIT", user);
     const data = {
       id: id,
     };
@@ -91,11 +75,13 @@ export const EditUserDetailForm = () => {
     await editUserDetails(user, data);
     navigate("/home");
   };
+  const gotohome = () => {
+    navigate('/home')
+  }
 
   return (
     <>
       <Container>
-        {/* <div>{userCurr && userCurr.email}</div> */}
         <Typography variant="h2">Edit Your Details</Typography>
         <FormControl>
           <InputLabel>Name</InputLabel>
@@ -178,6 +164,7 @@ export const EditUserDetailForm = () => {
           </Button>
         </FormControl>
       </Container>
+      <Button onClick={gotohome}>Home </Button>
     </>
   );
 };

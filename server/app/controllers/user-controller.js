@@ -13,7 +13,6 @@ const addUserDetails = async (request, response) => {
 
 const getUserDetails = async (request, response) => {
   const val = request.body.id;
-  console.log(val);
   try {
     const userDetails = await UserDetails.find({ _id: val });
     return response.status(200).json(userDetails);

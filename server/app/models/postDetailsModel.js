@@ -14,6 +14,11 @@ const TempModel = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  UserName:{
+    type:String,
+    required:true,
+    trim:true,
+  },
   Choice: {
     type: Number,
     required: true,

@@ -4,37 +4,29 @@ const userDetailsContext = createContext();
 
 export function UserDetailsContextProvider({ children }) {
 
-  const [account,setAccount]=useState();
+    const [account, setAccount] = useState(() => {
+        const storedAccount = localStorage.getItem('account');
+        return storedAccount ? JSON.parse(storedAccount) : null;
+    });
 
-  useEffect(() => {
     const setUserDetails = async (email) => {
-      const data = { id: email };
-      const response = await getUserDetails(data);
-      // setAccount(response.data[0]);
-      console.log("runnning appi");
-      return response;
-    };
-    setUserDetails();
-    // setAccount(response.data[0]);  
-  }, [account])
+        const data = { id: email };
+        const response = await getUserDetails(data);
+        return response;
+    }
 
-  const setUserDetails=async (email)=>{
-    const data={id:email};
-    const response=await getUserDetails(data);
-    // setAccount(response.data[0]);
-    console.log("runnning appi");
-    return response;
-  }
-  
-  return (
-    <userDetailsContext.Provider
-      value={{ account ,setAccount, setUserDetails }}
-    >
-      {children}
-    </userDetailsContext.Provider>
-  );
+    useEffect(() => {
+        localStorage.setItem('account', JSON.stringify(account));
+    }, [account]);
+
+    return (
+        <userDetailsContext.Provider
+            value={{ account, setAccount, setUserDetails }}>
+            {children}
+        </userDetailsContext.Provider>
+    );
 }
 
 export function useUserDetails() {
-  return useContext(userDetailsContext);
+    return useContext(userDetailsContext);
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert } from "react-bootstrap";
+import { Form, Alert, Accordion } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
@@ -10,7 +10,7 @@ const Login = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { logIn, googleSignIn } = useUserAuth();
-  const {setUserDetails,setAccount}=useUserDetails();
+  const {setUserDetails,setAccount, account}=useUserDetails();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -18,8 +18,6 @@ const Login = (props) => {
     email: email,
     flag: true,
   };
-
-  const PORT = 8000;
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -32,9 +30,8 @@ const Login = (props) => {
       if (flag == false) {
         navigate("/profile/create");
       } else {
-
-        // const response=await setUserDetails(email);
-        // setAccount(response.data[0]);
+        const response=await setUserDetails(email);
+        await setAccount(response.data[0]);
         navigate("/home");
       }
     } catch (err) {

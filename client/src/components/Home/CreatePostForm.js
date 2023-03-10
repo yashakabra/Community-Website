@@ -19,6 +19,7 @@ import { Box } from "@mui/system";
 import { Cancel, Tag } from "@mui/icons-material";
 import { addPostDetails } from "../../service/postDetailsAPI";
 import { useUserAuth } from "../../context/UserAuthContext";
+import {useUserDetails} from "../../context/UserDetailsContext";
 import { useNavigate } from "react-router-dom";
 const Container = styled(FormGroup)`
   width: 50%;
@@ -29,7 +30,8 @@ const Container = styled(FormGroup)`
 `;
 
 const defaultValue = {
-  Email:"",
+  Email: "",
+  UserName:"",
   Choice: 0,
   Title: "",
   photo: "",
@@ -67,6 +69,7 @@ export const CreatePostForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
   const { user: userCurr } = useUserAuth();
+  const {account}=useUserDetails();
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
@@ -85,6 +88,7 @@ export const CreatePostForm = () => {
 
     user.Tags = tags;
     formData.append("Email", userCurr.email);
+    formData.append("UserName",account.UserName);
     formData.append("Choice", user.Choice);
     formData.append("Title", user.Title);
     formData.append("photo", user.photo);

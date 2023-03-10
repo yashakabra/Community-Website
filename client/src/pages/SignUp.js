@@ -12,8 +12,6 @@ const SignUp = (props) => {
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const PORT = 8000;
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -23,7 +21,7 @@ const SignUp = (props) => {
         email: email,
         flag: false,
       };
-      const user = await createUser(tempUser);
+      await createUser(tempUser);
       navigate("/login");
     } catch (err) {
       setError(err.message);
