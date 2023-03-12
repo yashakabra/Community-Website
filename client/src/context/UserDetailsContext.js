@@ -15,13 +15,18 @@ export function UserDetailsContextProvider({ children }) {
         return response;
     }
 
+    const handleLogOut = async () => {
+        localStorage.removeItem('account');
+        setAccount(null);
+    }
+
     useEffect(() => {
         localStorage.setItem('account', JSON.stringify(account));
     }, [account]);
 
     return (
         <userDetailsContext.Provider
-            value={{ account, setAccount, setUserDetails }}>
+            value={{ account, setAccount, setUserDetails, handleLogOut }}>
             {children}
         </userDetailsContext.Provider>
     );

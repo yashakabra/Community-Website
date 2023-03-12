@@ -25,14 +25,6 @@ function App() {
                     path="/profile/*"
                     element={<ProtectedRoute val={2} />}
                   ></Route>
-                  {/* <Route
-                    path="/profile/create"
-                    element={<ProtectedRoute val={2} />}
-                  />
-                  <Route
-                    path="/profile/edit"
-                    element={<ProtectedRoute val={3} />}
-                  /> */}
                 </Routes>
             </Row>
           </Container>

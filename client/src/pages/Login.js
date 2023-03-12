@@ -6,10 +6,13 @@ import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { getFlag } from "../service/loginUserAPI";
 import { useUserDetails } from "../context/UserDetailsContext";
+
+
 const Login = (props) => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn, token} = useUserAuth();
   const {setUserDetails,setAccount, account}=useUserDetails();
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -18,13 +21,16 @@ const Login = (props) => {
     email: email,
     flag: true,
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       setError("");
       await logIn(email, password);
-      const obj = await getFlag(currentUser);
+      const packet = {
+        data : currentUser,
+        token:token,
+      }
+      const obj = await getFlag(packet);
       const flag = obj.data[0].flag;
 
       if (flag == false) {
@@ -44,7 +50,11 @@ const Login = (props) => {
     e.preventDefault();
     try {
       await googleSignIn();
-      const obj = await getFlag(currentUser);
+      const packet = {
+        currentUser,
+        token:token,
+      }
+      const obj = await getFlag(packet);
       const flag = obj.data[0].flag;
       if (flag == false) {
         navigate("/profile/create");

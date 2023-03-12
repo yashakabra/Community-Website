@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import { usePostDetail } from "../../context/PostDetailContext";
 import { getPostDetails } from "../../service/postDetailsAPI";
 import Card from 'react-bootstrap/Card';
+import { useUserAuth } from "../../context/UserAuthContext";
+import { useUserDetails } from "../../context/UserDetailsContext";
 
 const defaultValue = {
     Choice: "",
@@ -14,17 +16,20 @@ const defaultValue = {
 }
 
 const OpenedPost = (props) => {
-
-    const navigate = useNavigate();
+    const {user} = useUserAuth();
+    const {account} = useUserDetails();
     const { id } = useParams();
     const [post, setPost] = useState(defaultValue);
 
     const fetchDetails = async () => {
+        console.log(user.email, "   HHJK   ", account.email);
         const response = await getPostDetails(id);
         setPost(response.data[0]);   
     }
-
-    fetchDetails();
+    
+    useEffect(()=>{
+        fetchDetails();
+    }, [])
 
     return (
         <div style={{height: '100vh' }}>

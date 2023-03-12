@@ -15,38 +15,11 @@ import { useUserDetails } from "../context/UserDetailsContext";
 import { CreatePostForm } from "../components/Home/CreatePostForm";
 
 const Home = (props) => {
-    const { logOut, user } = useUserAuth();
-    const navigate = useNavigate();
-    const {account}=useUserDetails();
-    const handleLogout = async () => {
-        try {
-            await logOut();
-            navigate("/login");
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
 
-    const handleProfile = () => {
-        navigate('/profile')
-    }
+    console.log("HOMEEE IS CALLED");
 
     return (
         <Container className="w-100 border">
-            {/* <div className="p-4 box mt-3 text-center">
-                Hello Welcome <br />
-                {user && user.email}
-            </div>
-            <div className="d-grid gap-2">
-                <Button variant="primary" onClick={handleLogout}>
-                    Log out
-                </Button>
-            </div>
-            <div className="d-grid gap-2">
-                <Button variant="primary" onClick={handleProfile}>
-                    Profile
-                </Button>
-            </div> */}
             <Container fluid>
                 <Row className="w-100 my-0">
                     <PostDetailContextProvider>

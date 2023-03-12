@@ -15,8 +15,6 @@ const PostCard = (props) => {
     const profileSelect = () => {
     }
 
-    console.log("INSIDE POST CARD  ",details);
-
     return (
         <Card className="mt-2">
             <Card.Body style={{cursor:'pointer'}} onClick={cardSelect}>

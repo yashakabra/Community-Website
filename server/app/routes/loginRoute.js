@@ -1,4 +1,6 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
+
 const {
   getFlag,
   updateFlag,
@@ -7,7 +9,7 @@ const {
 
 const router = express.Router();
 
-router.post("/getFlag", getFlag);
+router.post("/getFlag" ,getFlag);
 
 router.post("/updateFlag", updateFlag);
 
