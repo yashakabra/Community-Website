@@ -130,17 +130,11 @@ export const CreatePostForm = () => {
   };
 
   const handleSubmit = async () => {
-    //   await addUserDetails(user);
     await uploadImage();
-    // await getPhoto();
     user.Email=userCurr.email;
     user.UserName=account.UserName;
-    // user.photo="po";
     user.Tags = tags;
-   
-    console.log(user);
     await addPostDetails(user);
-    // console.log(user);
     navigate('/home');
 
   };

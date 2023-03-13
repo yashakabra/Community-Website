@@ -12,7 +12,9 @@ import { auth } from "../config/firebase";
 const userAuthContext = createContext();
 
 export function UserAuthContextProvider({ children }) {
+  
   const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
 
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -32,9 +34,13 @@ export function UserAuthContextProvider({ children }) {
   }
 
   useEffect(() => {
-    console.log("WORKINGGGG");
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if(currentUser == null)return ;
+      await setUser(currentUser);
+      await currentUser.getIdToken().then((token)=>{
+        // console.log(token);
+        setToken(token);
+      });
     });
     return () => {
       unsubscribe();
@@ -43,7 +49,7 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, signUp, logIn, logOut, googleSignIn }}>
+      value={{ user, token, signUp, logIn, logOut, googleSignIn }}>
       {children}
     </userAuthContext.Provider>
   );

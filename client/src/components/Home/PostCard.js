@@ -12,11 +12,6 @@ const PostCard = (props) => {
         navigate(`/home/${details._id}`)
     }
 
-    const profileSelect = () => {
-    }
-
-    console.log("INSIDE POST CARD  ",details);
-
     return (
         <Card className="mt-2">
             <Card.Body style={{cursor:'pointer'}} onClick={cardSelect}>
@@ -25,7 +20,7 @@ const PostCard = (props) => {
                         {details.Title}
                     </Card.Text>                    
                     <footer className="blockquote-footer">
-                        @<cite title="Source Title" onClick={profileSelect} style={{cursor: 'pointer'}}>{details.UserName}</cite>
+                        @<cite title="Source Title" style={{cursor: 'pointer'}}>{details.UserName}</cite>
                     </footer>
                 </blockquote>
             </Card.Body>

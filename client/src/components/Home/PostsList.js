@@ -1,22 +1,22 @@
 import React, { useEffect, useState } from "react";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { useUserAuth } from "../../context/UserAuthContext";
 import { getAllPostList } from "../../service/postDetailsAPI";
 import PostCard from "./PostCard";
 
 const PostsList = (props) => {
     const navigate = useNavigate();
-
-    const sumbit = () => {
-        navigate("/home/spost"); 
-    }
-
+    const {token} = useUserAuth();
+    
     const [posts, setPosts] = useState("");
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await getAllPostList();
-            console.log("INSIDE POSTS LIST  ", response.data[0], response.data[1]);
+            const packet = {
+                token:token,
+            }
+            const response = await getAllPostList(packet);
             setPosts(response.data);
         };
         fetchData();

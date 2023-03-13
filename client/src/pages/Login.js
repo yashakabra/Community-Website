@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Form, Alert, Accordion } from "react-bootstrap";
+import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
 import { getFlag } from "../service/loginUserAPI";
 import { useUserDetails } from "../context/UserDetailsContext";
+
+
 const Login = (props) => {
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
-  const {setUserDetails,setAccount, account}=useUserDetails();
+  const { logIn, googleSignIn, token} = useUserAuth();
+  const {setUserDetails,setAccount}=useUserDetails();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -18,19 +21,29 @@ const Login = (props) => {
     email: email,
     flag: true,
   };
-
+  const packet = {
+    data : currentUser,
+    token:token,
+  }
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       setError("");
       await logIn(email, password);
-      const obj = await getFlag(currentUser);
+      
+      const obj = await getFlag(packet);
       const flag = obj.data[0].flag;
 
       if (flag == false) {
         navigate("/profile/create");
       } else {
-        const response=await setUserDetails(email);
+        const pack = {
+          data:{
+            id : email,
+          },
+          token:token,
+        }
+        const response = await setUserDetails(pack);
         await setAccount(response.data[0]);
         navigate("/home");
       }
@@ -44,7 +57,7 @@ const Login = (props) => {
     e.preventDefault();
     try {
       await googleSignIn();
-      const obj = await getFlag(currentUser);
+      const obj = await getFlag(packet);
       const flag = obj.data[0].flag;
       if (flag == false) {
         navigate("/profile/create");

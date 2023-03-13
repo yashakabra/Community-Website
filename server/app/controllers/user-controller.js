@@ -22,7 +22,7 @@ const getUserDetails = async (request, response) => {
 };
 
 const editUserDetails = async (request, response) => {
-  const val = request.body.id.id;
+  const val = request.body.id;
   const user = request.body.data;
   const editUser = new UserDetails(user);
   try {

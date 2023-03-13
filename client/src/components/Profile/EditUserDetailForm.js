@@ -1,7 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  addUserDetails,
-  getUserDetails,
   editUserDetails,
 } from "../../service/userDetailsAPI";
 import {
@@ -46,6 +44,8 @@ export const EditUserDetailForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
   const {setAccount,account}=useUserDetails();
+  const {token} = useUserAuth();
+
 
   const [id, setId] = useState("");
   const navigate = useNavigate();
@@ -68,10 +68,15 @@ export const EditUserDetailForm = () => {
   const handleSubmit = async () => {
     user._id = id;
     const data = {
-      id: id,
+      id:id,
+      data:user,
+    }
+    const packet = {
+      token:token,
+      data:data,
     };
     setAccount(user);
-    await editUserDetails(user, data);
+    await editUserDetails(packet);
     navigate("/home");
   };
   const gotohome = () => {

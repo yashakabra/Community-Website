@@ -2,7 +2,7 @@ import React from "react";
 
 const Tags = (props) => {
     return(
-        <div style={{backgroundColor: 'blue', height: '100vh'}}>
+        <div >
             TAGS
         </div>
     );

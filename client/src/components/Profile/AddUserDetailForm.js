@@ -41,7 +41,7 @@ const defaultValue = {
 export const AddUserDetailForm = () => {
   const PORT = 8000;
 
-  const { user: userCurr } = useUserAuth();
+  const { user: userCurr, token } = useUserAuth();
   const { setAccount}=useUserDetails();
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
@@ -58,12 +58,20 @@ export const AddUserDetailForm = () => {
   const handleSubmit = async () => {
     user._id = userCurr.email;
     setAccount(user);
-    await addUserDetails(user);
+    const packet1 = {
+      token:token,
+      data: user
+    };
+    await addUserDetails(packet1);
     const data = {
       email: userCurr.email,
       flag: true,
     };
-    await updateFlag(data);
+    const packet = {
+      data : data,
+      token:token,
+    }
+    await updateFlag(packet);
     navigate("/home");
   };
 
