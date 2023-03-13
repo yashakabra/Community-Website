@@ -9,10 +9,10 @@ const {
 
 const router = express.Router();
 
-router.post("/getFlag" ,getFlag);
+router.post("/getFlag", auth.userAuthorization ,getFlag);
 
-router.post("/updateFlag", updateFlag);
+router.post("/updateFlag", auth.userAuthorization ,updateFlag);
 
-router.post("/createUser", createUser);
+router.post("/createUser", auth.userAuthorization ,createUser);
 
 module.exports = router;

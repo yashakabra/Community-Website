@@ -1,4 +1,5 @@
 const express = require("express");
+const auth = require("../middlewares/auth");
 const {
   addUserDetails,
   getUserDetails,
@@ -7,10 +8,10 @@ const {
 
 const router = express.Router();
 
-router.post("/addUserDetails", addUserDetails);
+router.post("/addUserDetails", auth.userAuthorization ,addUserDetails);
 
-router.post("/getUserDetails", getUserDetails);
+router.post("/getUserDetails", auth.userAuthorization ,getUserDetails);
 
-router.post("/editUserDetails", editUserDetails);
+router.post("/editUserDetails", auth.userAuthorization ,editUserDetails);
 
 module.exports = router;

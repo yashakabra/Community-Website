@@ -6,12 +6,12 @@ export function UserDetailsContextProvider({ children }) {
 
     const [account, setAccount] = useState(() => {
         const storedAccount = localStorage.getItem('account');
-        return storedAccount ? JSON.parse(storedAccount) : null;
+        if(storedAccount !== undefined)return JSON.parse(storedAccount)
+        return "";
     });
 
-    const setUserDetails = async (email) => {
-        const data = { id: email };
-        const response = await getUserDetails(data);
+    const setUserDetails = async (packet) => {
+        const response = await getUserDetails(packet);
         return response;
     }
 

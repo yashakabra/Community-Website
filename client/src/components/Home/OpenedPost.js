@@ -16,14 +16,16 @@ const defaultValue = {
 }
 
 const OpenedPost = (props) => {
-    const {user} = useUserAuth();
-    const {account} = useUserDetails();
+    const {user, token} = useUserAuth();
     const { id } = useParams();
     const [post, setPost] = useState(defaultValue);
 
     const fetchDetails = async () => {
-        console.log(user.email, "   HHJK   ", account.email);
-        const response = await getPostDetails(id);
+        const packet = {
+            id : id,
+            token :token,
+        }
+        const response = await getPostDetails(packet);
         setPost(response.data[0]);   
     }
     

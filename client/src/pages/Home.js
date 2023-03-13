@@ -16,8 +16,6 @@ import { CreatePostForm } from "../components/Home/CreatePostForm";
 
 const Home = (props) => {
 
-    console.log("HOMEEE IS CALLED");
-
     return (
         <Container className="w-100 border">
             <Container fluid>

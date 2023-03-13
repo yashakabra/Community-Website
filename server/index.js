@@ -29,8 +29,6 @@ connect();
 
 app.use(cors());
 app.use(express.json());
-app.use(userAuthorization);
-
 
 app.use("/profile", profileRoute);
 app.use('/login', loginRoutes);

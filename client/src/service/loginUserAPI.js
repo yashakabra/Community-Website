@@ -16,8 +16,12 @@ export const updateFlag = async (data) => {
 };
 
 export const createUser = async (data) => {
+  const token = data.token;
   try {
-    const response = await axios.post(`${URL}/login/createUser`, data);
+    const response = await axios.post(`${URL}/login/createUser`, data.data, {headers: {
+      'Content-Type':'application/json',
+      'Authorization': 'Bearer ' + token,
+    }});
     return response;
   } catch (error) {
     console.log("ERROR IN CREATING USER ", error);

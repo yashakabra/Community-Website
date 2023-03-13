@@ -58,7 +58,11 @@ export const AddUserDetailForm = () => {
   const handleSubmit = async () => {
     user._id = userCurr.email;
     setAccount(user);
-    await addUserDetails(user);
+    const packet1 = {
+      token:token,
+      data: user
+    };
+    await addUserDetails(packet1);
     const data = {
       email: userCurr.email,
       flag: true,
@@ -67,7 +71,7 @@ export const AddUserDetailForm = () => {
       data : data,
       token:token,
     }
-    await updateFlag(data);
+    await updateFlag(packet);
     navigate("/home");
   };
 

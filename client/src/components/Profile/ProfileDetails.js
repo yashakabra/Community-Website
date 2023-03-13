@@ -1,10 +1,5 @@
 import { useState, useEffect } from "react";
 import {
-  addUserDetails,
-  getUserDetails,
-  editUserDetails,
-} from "../../service/userDetailsAPI";
-import {
   FormGroup,
   FormControl,
   InputLabel,
@@ -17,7 +12,6 @@ import {
   RadioGroup,
   FormLabel,
 } from "@mui/material";
-import { useUserAuth } from "../../context/UserAuthContext";
 import { useNavigate } from "react-router-dom";
 import { useUserDetails } from "../../context/UserDetailsContext";
 const Container = styled(FormGroup)`
@@ -45,24 +39,12 @@ export const ProfileDetails = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
   const { setAccount, account } = useUserDetails();
-
-//   setUser(account);
-  const [id, setId] = useState("");
   const navigate = useNavigate();
 
-  
-  console.log('hello world',account);
-//   setUser(account);
   useEffect(() => {
-    // if (!account) {
-    //      console.log("op");
-    //       return;
-    // } else {
-      setUser(account);
-    // }
+    setUser(account);
   }, [account]);
 
-  
   const gotohome = () => {
     navigate("/home");
   };
