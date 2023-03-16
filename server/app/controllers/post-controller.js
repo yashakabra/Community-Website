@@ -1,20 +1,9 @@
+const GlobalTags = require("../models/globalTagsModel.js");
 const PostDetails = require("../models/postDetailsModel.js");
+const UserTags = require("../models/userTagsModel.js");
+const {updateFlag} = require("../service/renderService");
 
 const addPostDetails = async (request, response) => {
-  // const postDetails = request.body;
-  // const _id=req.body._id;
-  // const Choice=req.body.Choice;
-  // const Title = req.body.Title;
-  // const Details = req.body.Details;
-  // const Tags = req.body.Tags;
-  // const photo=req.file.filename;
-
-  // const postDetails={
-  //     _id,Choice,Title,photo,Details,Tags,
-  // }
-  // console.log("iop", request.file.path);
-  // request.body.photo = request.file.path;
-  console.log("op",request.body);
   const newPostDetails = new PostDetails(request.body);
   try {
     await newPostDetails.save();
@@ -35,12 +24,46 @@ const getPostDetails = async (request, response) => {
 }
 
 const getAllPostList = async (request, response) => {
+  // console.log(request);
+  // const id = request.id;
+  const allPost = await PostDetails.find({});
+  // const userTags = UserTags.find({_id:id});
+  // const packet = {
+  //   allPost: allPost,
+  //   tags: userTags.Tags,
+  //   weight: userTags.Weights,
+  // }
+  // orderPost(packet);
+  response.status(200).json(allPost);
   try{
-    const allPosts = await PostDetails.find({});
-    response.status(200).json(allPosts);
   }catch(error){
     response.status(401).json({ message: error.message});
   }
 }
 
-module.exports = { addPostDetails, getPostDetails, getAllPostList };
+const updateTags = async (request, response) => {
+  const weight = request.body.weight;
+  const tags = request.body.tags;
+  const id = request.body.id;
+  try{
+    const data = await UserTags.find({_id:id});
+    const packet = {
+      tags: data.Tags,
+      updatedTags: tags,
+      weight: data.Weights,
+      updatedWeighted: weight,
+    }
+    updateFlag(packet);
+    const newData = {
+      _id:id,
+      Tags:tags,
+      Weights:weight,
+    }    
+    await UserTags.updateOne({_id:id}, newData);
+    await GlobalTags.findOneAndUpdate({}, {$set:{Tags:tags, Weights:weight}}, {new: true});
+  }catch(error){
+    response.status(401).json({message: error.message});
+  }
+}
+
+module.exports = { addPostDetails, getPostDetails, getAllPostList, updateTags };

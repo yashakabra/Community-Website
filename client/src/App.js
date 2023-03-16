@@ -1,36 +1,34 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { Row, Col, Container } from "react-bootstrap";
+import { Row, Container } from "react-bootstrap";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
-import ProtectedRoute from "./components/ProtectedRoute";
 import { UserDetailsContextProvider } from "./context/UserDetailsContext";
 import Redirect from "./components/MajorComponents/Redirect";
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import Home from "./pages/Home";
+import Profile from "./pages/Profile";
+import NavBar from "./components/NavBar";
 
 function App() {
   return (
     <UserDetailsContextProvider>
       <UserAuthContextProvider>
         <BrowserRouter >
-          <Container fluid className="mx-0 border" style={{paddingTop:'70px'}}>
-            <Row className="w-100 mx-0">
-                <Routes>
-                  <Route path="/" element={<Redirect/>}/>
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/signup" element={<SignUp />} />
-                  <Route
-                    path="/home/*"
-                    element={<ProtectedRoute val={1} />}
-                  ></Route>
-                  <Route
-                    path="/profile/*"
-                    element={<ProtectedRoute val={2} />}
-                  ></Route>
-                </Routes>
+          <NavBar />
+          <Container fluid style={{ paddingTop: '70px' }}>
+            <Row className="d-flex flex-wrap">
+              <Routes>
+                <Route path="/" element={<Redirect />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/signup" element={<SignUp />} />
+                <Route path="/home/*" element={<Home/>} />
+                <Route path="/profile/*" element={<Profile />}/>
+              </Routes>
             </Row>
           </Container>
-        </BrowserRouter>
+        </BrowserRouter> 
       </UserAuthContextProvider>
     </UserDetailsContextProvider>
   );

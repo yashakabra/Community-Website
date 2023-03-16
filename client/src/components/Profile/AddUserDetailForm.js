@@ -15,7 +15,6 @@ import {
 } from "@mui/material";
 import {  useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
-import { updateFlag } from "../../service/loginUserAPI";
 import { useUserDetails } from "../../context/UserDetailsContext";
 const Container = styled(FormGroup)`
   width: 50%;
@@ -40,12 +39,12 @@ const defaultValue = {
 
 export const AddUserDetailForm = () => {
   const PORT = 8000;
-
+  console.log("ADD USER CALLED");
   const { user: userCurr, token } = useUserAuth();
   const { setAccount}=useUserDetails();
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-
+  console.log(userCurr.email, token);
   const navigate = useNavigate();
 
   const onValueChange = (e) => {
@@ -63,15 +62,6 @@ export const AddUserDetailForm = () => {
       data: user
     };
     await addUserDetails(packet1);
-    const data = {
-      email: userCurr.email,
-      flag: true,
-    };
-    const packet = {
-      data : data,
-      token:token,
-    }
-    await updateFlag(packet);
     navigate("/home");
   };
 

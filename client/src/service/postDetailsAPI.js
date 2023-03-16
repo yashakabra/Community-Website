@@ -16,6 +16,7 @@ export const addPostDetails = async (data) => {
 
 export const getPostDetails = async (data) => {
   const token = data.token;
+  console.log()
   try{
     return await axios.get(`${URL}/post/getPostDetails/${data.id}`, {headers: {
       'Content-Type':'application/json',
@@ -28,6 +29,7 @@ export const getPostDetails = async (data) => {
 
 export const getAllPostList = async (data) => {
   const token = data.token;
+  // console.log("HERE   ",token);
   try{
     const response = await axios.get(`${URL}/post/getAllPostList`, {headers: {
       'Content-Type':'application/json',

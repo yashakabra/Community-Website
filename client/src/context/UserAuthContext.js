@@ -24,8 +24,10 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
 
-  function logOut() {
-    return signOut(auth);
+  async function logOut() {
+    const res = await signOut(auth);
+    setToken("");
+    return res;
   }
 
   function googleSignIn() {
@@ -35,12 +37,15 @@ export function UserAuthContextProvider({ children }) {
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      if(currentUser == null)return ;
-      await setUser(currentUser);
-      await currentUser.getIdToken().then((token)=>{
-        // console.log(token);
-        setToken(token);
-      });
+      if(currentUser){
+        await setUser(currentUser);
+        await currentUser.getIdToken().then(async (token)=>{
+        await setToken(token);
+        });
+      }else{
+        setUser("");
+      }
+      
     });
     return () => {
       unsubscribe();

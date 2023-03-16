@@ -42,12 +42,9 @@ export const ProfileDetails = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if((account === null) || (account === undefined) || (account === ""))return ;
     setUser(account);
   }, [account]);
-
-  const gotohome = () => {
-    navigate("/home");
-  };
 
   return (
     <>
@@ -99,8 +96,6 @@ export const ProfileDetails = () => {
           <InputLabel>Introduction About Yourself</InputLabel>
           <Input name="Introduction" value={user.Introduction} />
         </FormControl>
-
-        <Button onClick={gotohome}>Home </Button>
       </Container>
     </>
   );

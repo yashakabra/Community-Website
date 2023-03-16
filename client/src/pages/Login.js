@@ -1,55 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Form, Alert } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import GoogleButton from "react-google-button";
 import { useUserAuth } from "../context/UserAuthContext";
-import { getFlag } from "../service/loginUserAPI";
 import { useUserDetails } from "../context/UserDetailsContext";
 
 
 const Login = (props) => {
-  
+  console.log("LOGIN ")
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { logIn, googleSignIn, token} = useUserAuth();
-  const {setUserDetails,setAccount}=useUserDetails();
+  const { logIn, googleSignIn, token } = useUserAuth();
+  const { setUserDetails, setAccount } = useUserDetails();
+  
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
-  const currentUser = {
-    email: email,
-    flag: true,
-  };
-  const packet = {
-    data : currentUser,
-    token:token,
+  useEffect(()=>{
+    if(token === "")return;
+    const packet = {
+      data: {
+        id: email,
+      },
+      token: token,
+    }
+    helper(packet);
+  },[token]);
+
+  const helper = async (packet) => {
+    const response = await setUserDetails(packet);
+    await setAccount(response.data[0]);
+    navigate("/home");
   }
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       setError("");
       await logIn(email, password);
       
-      const obj = await getFlag(packet);
-      const flag = obj.data[0].flag;
-
-      if (flag == false) {
-        navigate("/profile/create");
-      } else {
-        const pack = {
-          data:{
-            id : email,
-          },
-          token:token,
-        }
-        const response = await setUserDetails(pack);
-        await setAccount(response.data[0]);
-        navigate("/home");
-      }
     } catch (err) {
       setError(err.message);
-      console.log(err);
     }
   };
 
@@ -57,13 +49,7 @@ const Login = (props) => {
     e.preventDefault();
     try {
       await googleSignIn();
-      const obj = await getFlag(packet);
-      const flag = obj.data[0].flag;
-      if (flag == false) {
-        navigate("/profile/create");
-      } else {
-        navigate("/home");
-      }
+      navigate("/home");
     } catch (err) {
       console.log(err);
       setError(err.message);

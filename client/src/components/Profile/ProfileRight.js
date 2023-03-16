@@ -11,7 +11,7 @@ const Container = styled(FormGroup)`
 `;
 
 export const ProfileRight = () => {
-  const { logOut } = useUserAuth();
+  const { logOut, user } = useUserAuth();
   const { handleLogOut } = useUserDetails();
   const navigate = useNavigate();
 
@@ -29,7 +29,7 @@ export const ProfileRight = () => {
       navigate('/login');
     }
     catch (err) {
-      console.log(err.message);
+      console.log(err);
     }
   }
   return (

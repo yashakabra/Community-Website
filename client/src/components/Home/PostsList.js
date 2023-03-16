@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../../context/UserAuthContext";
 import { getAllPostList } from "../../service/postDetailsAPI";
 import PostCard from "./PostCard";
 
 const PostsList = (props) => {
-    const navigate = useNavigate();
     const {token} = useUserAuth();
-    
-    const [posts, setPosts] = useState("");
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
+        if(!token)return ;
         const fetchData = async () => {
             const packet = {
                 token:token,
@@ -20,7 +18,7 @@ const PostsList = (props) => {
             setPosts(response.data);
         };
         fetchData();
-    }, []);
+    }, [token]);
 
     return(
         <div >

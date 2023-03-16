@@ -27,8 +27,6 @@ const ProtectedRoute = (props) => {
     return (
         <Container className="mx-0">
             <Row className="w-100 mx-0" style={{padding:0}}>
-                <NavBar />
-                {Component}
             </Row>
          </Container>
     );

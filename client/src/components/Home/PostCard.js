@@ -1,7 +1,6 @@
 import React from "react";
 import Card from 'react-bootstrap/Card';
 import { useNavigate } from "react-router-dom";
-import { usePostDetail } from "../../context/PostDetailContext";
 
 const PostCard = (props) => {
     const navigate = useNavigate();

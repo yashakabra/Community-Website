@@ -1,7 +1,6 @@
 import { Button } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { usePostDetail } from "../../context/PostDetailContext";
 import { getPostDetails } from "../../service/postDetailsAPI";
 import Card from 'react-bootstrap/Card';
 import { useUserAuth } from "../../context/UserAuthContext";
@@ -16,7 +15,7 @@ const defaultValue = {
 }
 
 const OpenedPost = (props) => {
-    const {user, token} = useUserAuth();
+    const {token} = useUserAuth();
     const { id } = useParams();
     const [post, setPost] = useState(defaultValue);
 
