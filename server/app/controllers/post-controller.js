@@ -3,7 +3,9 @@ const PostDetails = require("../models/postDetailsModel.js");
 const UserTags = require("../models/userTagsModel.js");
 const PostLikesAndComments = require("../models/postLikesAndCommentsModel.js");
 const userLikedAndCommentedPosts = require("../models/userLikedAndCommentedPostsModel");
-const { updateFlag } = require("../service/renderService");
+const { updateTag } = require("../service/updateService");
+
+const ID=111;
 
 const addPostDetails = async (request, response) => {
   const newPostDetails = new PostDetails(request.body);
@@ -43,37 +45,42 @@ const getAllPostList = async (request, response) => {
   }
 }
 
-const updateTags = async (request, response) => {
-  const weight = request.body.weight;
-  const tags = request.body.tags;
-  const id = request.body.id;
-  try {
-    const data = await UserTags.find({ _id: id });
-    const packet = {
-      tags: data.Tags,
-      updatedTags: tags,
-      weight: data.Weights,
-      updatedWeighted: weight,
-    }
-    updateFlag(packet);
-    const newData = {
-      _id: id,
-      Tags: tags,
-      Weights: weight,
-    }
-    await UserTags.findOneAndUpdate({ _id: id }, newData);
-    await GlobalTags.findOneAndUpdate({}, { $set: { Tags: tags, Weights: weight } }, { new: true });
-  } catch (error) {
-    response.status(401).json({ message: error.message });
-  }
-}
+// const updateTags = (tags, email, statusCode) => {
+//   const weight = request.body.weight;
+//   const tags = request.body.tags;
+//   const id = request.body.id;
+//   try {
+//     const data = await UserTags.find({ _id: id });
+//     const packet = {
+//       tags: data.Tags,
+//       updatedTags: tags,
+//       weight: data.Weights,
+//       updatedWeighted: weight,
+//     }
+//     updateFlag(packet);
+//     const newData = {
+//       _id: id,
+//       Tags: tags,
+//       Weights: weight,
+//     }
+//     await UserTags.findOneAndUpdate({ _id: id }, newData);
+//     const dataT = await GlobalTags.find({});
+//     const packet1 = {
+//       tags:dataT.Tags,
+//       updateTags:newData.Tags,
+//       weight:dataT.weight,
+//     }
+//   } catch (error) {
+//     response.status(401).json({ message: error.message });
+//   }
+// }
 
 const addPostLikesAndComments = async (request, response) => {
   try {
     const data = request.body;
     const id = data.id;
     const post = await PostLikesAndComments.findOne({ _id: id });
-    
+
     if (!post || post.length === 0) {
 
       let obj = { _id: id, likes: 0, comments: [] };
@@ -138,6 +145,32 @@ const getPostLikesAndComments = async (request, response) => {
 const addUserLikedAndCommentedPosts = async (request, response) => {
   try {
     const data = request.body;
+    let weight = 0;
+    if(data.statusCode === 2)weight = 2;
+    if(data.statusCode === 1)weight = 1;
+    if(data.statusCode === 0)weight = -1;
+    const res = await UserTags.find({_id:data.email});
+    const res3 = await GlobalTags.find({});
+    
+    const packet = {
+      globalTags:(!res3||res3.length===0)?[]:res3[0].tags,
+      tags:(!res||res.length===0)?[]:res.tags,
+      newTags:data.tags,
+      newWeight:weight,
+    }
+    const res2 = await updateTag(packet);
+    
+    if(!res || res.length===0){
+      const newIns = new UserTags({_id:data.email, tags:res2.tags});
+      newIns.save();
+    }  
+    else await UserTags.findOneAndUpdate({_id:data.email}, {_id:data.email, tags:res2.tags});
+    if(!res3||res3.length===0){
+      const newIns = new GlobalTags({_id:ID, tags:res2.tags});
+      newIns.save();
+    }
+    else await GlobalTags.findOneAndUpdate({_id:ID}, {_id:data.email, tags:res2.tags});
+    
 
     let details = await userLikedAndCommentedPosts.find({ _id: data.email });
     if (!details || details.length == 0) {
@@ -203,7 +236,7 @@ const getUserLikedAndCommentedPosts = async (request, response) => {
 };
 
 module.exports = {
-  addPostDetails, getPostDetails, getAllPostList, updateTags, addPostLikesAndComments,
+  addPostDetails, getPostDetails, getAllPostList, addPostLikesAndComments,
   getPostLikesAndComments,
   addUserLikedAndCommentedPosts,
   getUserLikedAndCommentedPosts,

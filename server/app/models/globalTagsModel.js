@@ -1,18 +1,23 @@
 const mongoose = require("mongoose");
 
 const GlobalTagsModel = new mongoose.Schema(
-  {
-    Tag: {
+  { 
+    _id: {
+      type:String,
+      required:true,
+      unique:true,
+    },
+    tags:[{tag: {
       type: String,
       required: true,
       trim: true,
       unique: true,
     },
-    Weight: {
+    weight: {
       type: Number,
       required: true,
       trim: true,
-    },
+    },}],
   },
   { collection: "global-tags" }
 );

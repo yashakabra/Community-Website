@@ -6,6 +6,7 @@ import { addPostLikesAndComments } from "../../service/postDetailsAPI";
 import { getPostLikesAndComments } from "../../service/postDetailsAPI";
 import { addUserLikedAndCommentedPosts } from "../../service/postDetailsAPI";
 import { getUserLikedAndCommentedPosts } from "../../service/postDetailsAPI";
+// import { updateTags } from "../../service/postDetailsAPI";
 import { useUserAuth } from "../../context/UserAuthContext";
 import CommentCard from "./CommentCard"
 import Card from 'react-bootstrap/Card';
@@ -71,12 +72,12 @@ const OpenedPost = (props) => {
       obj.statusCode = 1;
       obj.likes = 1;
     }
-    let data = { id: id, statusCode: obj.statusCode, email: user.email, message: "" };
     const packet1 = {
       obj: obj,
       token: token,
     }
     await addPostLikesAndComments(packet1);
+    let data = { id: id, statusCode: obj.statusCode, email: user.email, message: "", tags:post.Tags };
     const packet2 = {
       data: data,
       token: token,
@@ -105,6 +106,7 @@ const OpenedPost = (props) => {
       statusCode: obj.statusCode,
       email: user.email,
       message: message,
+      tags:post.Tags,
     };
     const packet1 = {
       obj: obj,

@@ -1,30 +1,4 @@
-const updateFlag = (data) => {
-    const tags = data.tags;
-    const weight = data.weights;
-    const updatedTags = data.updatedTags;
-    const updatedWeight = data.updatedWeight;
 
-    let commonTags = [];
-
-    for(let i=0;i<tags.length;i++){
-        if(updatedTags.includes(tags[i])){
-            commonTags.push(i);
-        }
-    }
-
-    for(let i=0;i<commonTags.length;i++){
-        let index = commonTags[i];
-        weight[index] = weight[index] + updatedWeight;
-    }
-
-    for(let i=0;i<updatedTags.length;i++){
-        let element = updatedTags[i];
-        if(!tags.include(element)){
-            tags.push(element);
-            weight.push(updatedWeight);
-        }
-    }
-}
 
 const normaliseWeights = (packet) => {
     const weights = packet.weight;
@@ -99,6 +73,5 @@ const orderPost = (packet) => {
 }
 
 module.exports = {
-    updateFlag,
     orderPost,
 }
