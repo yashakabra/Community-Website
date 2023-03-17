@@ -8,7 +8,7 @@ const defaultValue = {
   Tags: [],
 };
 
-const TempModel = new mongoose.Schema({
+const PostModel = new mongoose.Schema({
   Email: {
     type: String,
     required: true,
@@ -46,6 +46,6 @@ const TempModel = new mongoose.Schema({
   },
 });
 
-const PostDetails = mongoose.model("post-detail", TempModel);
+const PostDetails = mongoose.model("post-detail", PostModel);
 
 module.exports = PostDetails;

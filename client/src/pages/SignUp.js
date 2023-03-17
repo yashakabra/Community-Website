@@ -6,10 +6,9 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { createUser } from "../service/loginUserAPI";
 
 const SignUp = (props) => {
-  const {token} = useUserAuth();
+  const {token, signUp} = useUserAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { signUp } = useUserAuth();
   const navigate = useNavigate();
   const [error, setError] = useState("");
 
@@ -18,16 +17,7 @@ const SignUp = (props) => {
     try {
       setError("");
       await signUp(email, password);
-      const data = {
-        email: email,
-        flag: false,
-      };
-      const packet = {
-        data:data,
-        token:token,
-      }
-      await createUser(packet);
-      navigate("/login");
+      navigate("/profile/create");
     } catch (err) {
       setError(err.message);
       console.log(err);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState, useRef } from "react";
 import {
   FormGroup,
@@ -68,6 +68,8 @@ const Tags = ({ data, handleDelete }) => {
   );
 };
 
+let IMG_URL;
+
 export const CreatePostForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
@@ -90,51 +92,72 @@ export const CreatePostForm = () => {
     const metadata = {
       contentType: "image/jpeg",
     };
-
+    console.log("HEREEEEE");
     const imageRef = ref(storage, `images/${imageUpload.name + v4()}`);
-    uploadBytes(imageRef, imageUpload, metadata).then(() => {
-      alert("Image Uploaded");
-     
+    await uploadBytes(imageRef, imageUpload, metadata).then(() => {
+      // alert("Image Uploaded");
+      console.log('HERE 2');
+    }).then(async ()=>{
+      await getDownloadURL(imageRef)
+        .then((downloadURL) => {
+          // console.log("File available at  ", downloadURL);
+          // setUser({ ...user, photo:downloadURL });
+          IMG_URL = downloadURL;
+          // setUser({ ...user, photo: downloadURL });
+        });
     });
 
-    await getPhoto(imageRef);
+    // await getPhoto(imageRef);
   }
 
-  const getPhoto=(imageRef)=>{
-  getDownloadURL(imageRef)
-    .then((url) => {
-      // Insert url into an <img> tag to "download"
-      setUser({...user,photo:url});
-    })
-    .catch((error) => {
-      // A full list of error codes is available at
-      // https://firebase.google.com/docs/storage/web/handle-errors
-      switch (error.code) {
-        case "storage/object-not-found":
-          // File doesn't exist
-          break;
-        case "storage/unauthorized":
-          // User doesn't have permission to access the object
-          break;
-        case "storage/canceled":
-          // User canceled the upload
-          break;
+  // const getPhoto=(imageRef)=>{
+  // getDownloadURL(imageRef)
+  //   .then((url) => {
+  //     // Insert url into an <img> tag to "download"
+  //     console.log('url->>>',url);
+  //     setUser({...user,photo:url});
+  //   })
+  //   .catch((error) => {
+  //     // A full list of error codes is available at
+  //     // https://firebase.google.com/docs/storage/web/handle-errors
+  //     console.log(error.code);
+  //     switch (error.code) {
+  //       case "storage/object-not-found":
+  //         // File doesn't exist
+  //         // console.log();
+  //         break;
+  //       case "storage/unauthorized":
+  //         // User doesn't have permission to access the object
+  //         // console.log("");
+  //         break;
+  //       case "storage/canceled":
+  //         // User canceled the upload
+  //         // console.log("");
+  //         break;
 
-        // ...
+  //       // ...
 
-        case "storage/unknown":
-          // Unknown error occurred, inspect the server response
-          break;
-      }
-    })
-  };
+  //       case "storage/unknown":
+  //         // Unknown error occurred, inspect the server response
+  //         // console.log("");
+  //         break;
+  //     }
+  //   })
+  // };
 
   const handleSubmit = async () => {
+  
     await uploadImage();
+  
     user.Email=userCurr.email;
     user.UserName=account.UserName;
+ 
     user.Tags = tags;
+
+    user.photo = IMG_URL;
+
     await addPostDetails(user);
+ 
     navigate('/home');
 
   };

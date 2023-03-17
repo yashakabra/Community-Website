@@ -6,8 +6,12 @@ export function UserDetailsContextProvider({ children }) {
 
     const [account, setAccount] = useState(() => {
         const storedAccount = localStorage.getItem('account');
-        if(storedAccount !== undefined)return JSON.parse(storedAccount)
-        return "";
+        try {
+            if((typeof storedAccount !== undefined )&& (storedAccount!==null) && (storedAccount!=='') &&  (typeof storedAccount === 'string'))return JSON.parse(storedAccount)
+            else return "";
+        }catch(err){
+            console.log(err);
+        }
     });
 
     const setUserDetails = async (packet) => {
@@ -17,10 +21,12 @@ export function UserDetailsContextProvider({ children }) {
 
     const handleLogOut = async () => {
         localStorage.removeItem('account');
-        setAccount(null);
+        await setAccount(null);
+        return ;
     }
 
     useEffect(() => {
+
         localStorage.setItem('account', JSON.stringify(account));
     }, [account]);
 
