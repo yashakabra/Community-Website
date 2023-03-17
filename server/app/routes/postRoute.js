@@ -15,7 +15,7 @@ router.post("/addPostDetails", auth.userAuthorization ,addPostDetails);
 
 router.get("/getPostDetails/:id", auth.userAuthorization ,getPostDetails);
 
-router.get("/getAllPostList", auth.userAuthorization ,getAllPostList);
+router.get("/getAllPostList/:id", auth.userAuthorization ,getAllPostList);
 
 router.post("/addPostLikesAndComments", auth.userAuthorization,addPostLikesAndComments);
 

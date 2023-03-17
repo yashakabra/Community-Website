@@ -5,13 +5,14 @@ import { getAllPostList } from "../../service/postDetailsAPI";
 import PostCard from "./PostCard";
 
 const PostsList = (props) => {
-    const {token} = useUserAuth();
+    const {token, user} = useUserAuth();
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         if(!token)return ;
         const fetchData = async () => {
             const packet = {
+                id: user.email,
                 token:token,
             }
             const response = await getAllPostList(packet);

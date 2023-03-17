@@ -33,8 +33,9 @@ export const getPostDetails = async (data) => {
 
 export const getAllPostList = async (data) => {
   const token = data.token;
+  const id = data.id;
   try {
-    const response = await axios.get(`${URL}/post/getAllPostList`, {
+    const response = await axios.get(`${URL}/post/getAllPostList/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
@@ -69,14 +70,12 @@ export const getPostLikesAndComments = async (packet) => {
   const token = packet.token;
   const id = packet.id;
   try {
-    // console.log("inside get like");
     const response = await axios.get(`${URL}/post/getPostLikesAndComments/${id}`, {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer ' + token,
       }
     })
-    // console.log(response.data,"looo");
     return response;
   }
   catch (error) {
@@ -118,20 +117,3 @@ export const getUserLikedAndCommentedPosts = async (packet) => {
     console.log("ERROR IN GETTING USER LIKED AND COMMENTED POSTS", error);
   }
 }
-
-// export const updateTags = async (packet) => {
-//   const token = packet.token;
-//   const data = packet.data;
-//   try {
-//     const response = await axios.post(`${URL}/post/updateTags`, data, {
-//       headers: {
-//         'Content-Type': 'application/json',
-//         'Authorization': 'Bearer ' + token,
-//       }
-//     });
-//     return response;
-//   }
-//   catch (error) {
-//     console.log("ERROR IN GETTING USER LIKED AND COMMENTED POSTS", error);
-//   }
-// }
