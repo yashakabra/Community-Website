@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const GlobalTagsModel = new mongoose.Schema(
   {
-    Tags: {
-      type: Array,
+    Tag: {
+      type: String,
       required: true,
       trim: true,
       unique: true,
     },
-    Weights: {
-      type: Array,
+    Weight: {
+      type: Number,
       required: true,
       trim: true,
     },

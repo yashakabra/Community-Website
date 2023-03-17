@@ -44,7 +44,7 @@ export const EditUserDetailForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
   const {setAccount,account}=useUserDetails();
-  const {token} = useUserAuth();
+  const {token, user:crr} = useUserAuth();
 
 
   const [id, setId] = useState("");
@@ -58,9 +58,10 @@ export const EditUserDetailForm = () => {
   };
 
   useEffect(() => {
-    if (!account) {
+    if (account===undefined) {
       return;
     }else{
+      console.log(crr)
       setUser(account);
     }
   }, [account]);

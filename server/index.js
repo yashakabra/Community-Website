@@ -31,7 +31,6 @@ app.use(express.json());
 app.use("/profile", profileRoute);
 app.use('/login', loginRoutes);
 app.use("/post", postRoute);
-app.use("/uploads", express.static("uploads"));
 
 app.listen(PORT, ()=>{
     console.log("Server started!!");

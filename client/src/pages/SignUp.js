@@ -17,14 +17,6 @@ const SignUp = (props) => {
     try {
       setError("");
       await signUp(email, password);
-      // const userData = {
-      //   email: email,
-      //   flag: false,
-      // };
-      // const userCredentials = {
-      //   data:userData,
-      //   token:token,
-      // }
       navigate("/profile/create");
     } catch (err) {
       setError(err.message);
