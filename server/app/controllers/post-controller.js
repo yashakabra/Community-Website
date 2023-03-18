@@ -28,27 +28,26 @@ const getPostDetails = async (request, response) => {
 }
 
 const getAllPostList = async (request, response) => {
-  // console.log(request);
   try {
-    const id = request.params;
+    const { id } = request.params;
     const allPost = await PostDetails.find({});
-    // const userTags = await UserTags.find({ _id: id });
-    // const postDetails = await PostLikesAndComments.find({});
-    console.log(id);
-    // if ((!userTags) || (userTags.length === 0) || (userTags===undefined)) {
-    //   return response.status(200).json(allPost);
-    // }
-    // console.log(userTags);
-    // // console.log(allPost);
-    // console.log("HERE 1");
-    // const packet = {
-    //   allPostsDetails: allPost,
-    //   allPostWeight: postDetails,
-    //   userTags: userTags.tags,
-    // }
-    // orderPost(packet);
+    const userTags = await UserTags.find({ _id: id });
+    if ((!userTags) || (userTags.length === 0) || (userTags === undefined)) {
+      return response.status(200).json(allPost);
+    }
+    const packet = {
+      allPostsDetails: allPost,
+      // allPostWeight: postDetails,
+      userTags: userTags[0].tags,
+    }
+    // console.log("BEFORE SORT");
+    // for(let i=0;i<allPost.length;i++)console.log(allPost[i].Title);
+    await orderPost(packet);
+    const sortedAllPost = packet.allPostsDetails;
+    // console.log("AFTER SORT");
+    // for(let i=0;i<allPost.length;i++)console.log(sortedAllPost[i].Title);
     // console.log("HERE 4");
-    return response.status(200).json(allPost);
+    return response.status(200).json(sortedAllPost);
 
   } catch (error) {
     console.log("SADLY HERE");
