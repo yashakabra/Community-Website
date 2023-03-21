@@ -73,7 +73,7 @@ let IMG_URL;
 export const CreatePostForm = () => {
   const [user, setUser] = useState(defaultValue);
   const [value, setValue] = useState(0);
-  const { user: userCurr } = useUserAuth();
+  const { user: userCurr, token } = useUserAuth();
   const {account}=useUserDetails();
   const navigate = useNavigate();
   const [imageUpload, setImageUpload] = useState(null);
@@ -155,8 +155,13 @@ export const CreatePostForm = () => {
     user.Tags = tags;
 
     user.photo = IMG_URL;
+    
+    const packet = {
+      token:token,
+      data:user,
+    }
 
-    await addPostDetails(user);
+    await addPostDetails(packet);
  
     navigate('/home');
 
